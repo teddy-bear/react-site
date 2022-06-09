@@ -1,6 +1,6 @@
 import React from 'react';
-import TabsWidget from './components/tabsWidget';
-import TableData from "./components/tableData";
+import TabsWidget from './components/tabs/tabsWidget';
+import TableData from "./components/table/tableData";
 
 function App() {
     return (

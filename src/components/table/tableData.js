@@ -1,16 +1,13 @@
 import React from "react";
+import Form from "./Form";
 
-// todo: move into components
 class TableData extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            topics: ['JSX', 'Rendering Elements', 'Components & Props', 'State & Lifecycle'],
-            removedItem: null,
-            topic: '',
-            email: ''
+            topics: ['JSX', 'Rendering Elements', 'Components & Props', 'State & Lifecycle'], removedItem: null
         }
     }
 
@@ -38,24 +35,15 @@ class TableData extends React.Component {
     }
 
     /**
-     * Form submit
-     * @param event
+     * Add new table row
+     * @param item
      */
-    handleSubmit = (event) => {
-        event.preventDefault();
+    handleFormSubmit = (item) => {
         this.setState({
-            topics: [...this.state.topics, this.state.topic],
-            topic: ''
+            topics: [...this.state.topics, item]
         })
     }
 
-    handleInputChange = event => {
-        let value = event.target.value;
-        let name = event.target.name;
-        this.setState({
-            [name]: value
-        })
-    }
 
     render() {
         const tabs = this.state.topics;
@@ -98,31 +86,7 @@ class TableData extends React.Component {
                 </tbody>
             </table>
             {message}
-            <form className="form" onSubmit={this.handleSubmit}>
-                <label htmlFor="">
-                    <input
-                        className="form-control"
-                        type="text"
-                        placeholder='Add topic'
-                        name='topic'
-                        value={this.state.topic}
-                        onChange={this.handleInputChange}
-                    />
-                </label>
-                <label htmlFor="">
-                    <input
-                        className="form-control"
-                        type="email"
-                        placeholder='Email'
-                        name='email'
-                        value={this.state.email}
-                        onChange={this.handleInputChange}
-                    />
-                </label>
-                <button type='submit' className="btn btn-success">
-                    add item
-                </button>
-            </form>
+            <Form onFormSubmit={this.handleFormSubmit}/>
         </div>)
     }
 }
