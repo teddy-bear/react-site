@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import TabsWidget from './components/tabsWidget';
+import TableData from "./components/tableData";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="page-wrap">
+            <header className="page-header">
+                <nav>
+                    <div>link 1</div>
+                    <div>link 2</div>
+                </nav>
+            </header>
+            <main>
+                <div className="container">
+                    <TabsWidget/>
+                    <TableData/>
+                </div>
+            </main>
+            <footer>
+                footer here
+            </footer>
+        </div>
+    );
 }
 
 export default App;
