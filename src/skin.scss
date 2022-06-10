@@ -1,3 +1,6 @@
+//
+//  Tabs
+//  ____________________________________________
 .tabs-widget {
     border: 1px solid #f3f3f3;
     margin: 20px auto;
@@ -18,6 +21,9 @@
     }
 }
 
+//
+//  Table rows
+//  ____________________________________________
 .table-wrap {
     td {
         vertical-align: middle;
@@ -48,6 +54,29 @@
     }
 }
 
+//
+//  Modal
+//  _____________________________________________
+.modal.fade {
+    display: block;
+
+    .modal-dialog {
+        opacity: 0;
+        transition: .7s;
+    }
+}
+
+.modal-show {
+    .modal.fade {
+        .modal-dialog {
+            opacity: 1;
+        }
+    }
+}
+
+//
+//  Footer
+//  _____________________________________________
 footer {
     position: fixed;
     bottom: 0;
