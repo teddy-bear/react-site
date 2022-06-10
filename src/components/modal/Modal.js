@@ -1,10 +1,8 @@
 import Aux from "../hoc/Aux";
 
 function Modal(props) {
-    let modalClass = (props.show) ? 'modal fade show' : 'modal fade';
 
     const modalClose = () => {
-        console.log('overlay clicked')
         props.onModalClose();
     }
 
@@ -12,14 +10,19 @@ function Modal(props) {
         <Aux>
             <div className='modal fade show' id="exampleModal"
                  tabIndex="-1" aria-labelledby="exampleModalLabel"
-                 onClick={() => modalClose()}
                  aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                            <h5 className="modal-title" id="exampleModalLabel">{props.title}</h5>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                onClick={() => modalClose()}
+                            >
+                            </button>
                         </div>
                         <div className="modal-body">
                             {props.children}

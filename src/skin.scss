@@ -59,10 +59,15 @@
 //  _____________________________________________
 .modal.fade {
     display: block;
+    pointer-events: none; // need to make overlay clickable
 
     .modal-dialog {
         opacity: 0;
         transition: .7s;
+    }
+
+    .modal-footer {
+        display: none;
     }
 }
 

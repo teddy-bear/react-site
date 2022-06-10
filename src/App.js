@@ -14,7 +14,13 @@ function App() {
     }
 
     if (showModal) {
-        modal = <Modal onModalClose={() => modalClose()} show={showModal}>modal content here</Modal>;
+        modal = <Modal
+            onModalClose={() => modalClose()}
+            show={showModal}
+            title='Modal title'
+        >
+            modal content here
+        </Modal>;
         document.body.classList.add('modal-show');
     } else {
         document.body.classList.remove('modal-show');
