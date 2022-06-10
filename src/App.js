@@ -2,15 +2,22 @@ import React, {useState, useEffect} from 'react';
 import TabsWidget from './components/tabs/tabsWidget';
 import TableData from "./components/table/tableData";
 import Modal from "./components/modal/Modal";
+import Header from "./components/header/Header";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
 
     const [showModal, setModalVisibility] = useState(false);
+    const [showNavbar, setNavbarVisibility] = useState(false);
 
     let modal;
 
     const modalClose = () => {
         setModalVisibility(false);
+    }
+
+    const navbarToggleView = () => {
+        setNavbarVisibility(!showNavbar);
     }
 
     if (showModal) {
@@ -26,14 +33,15 @@ function App() {
         document.body.classList.remove('modal-show');
     }
 
+    let navbar;
+    if (showNavbar) {
+        navbar = <Navbar modalClosed={() => navbarToggleView()}/>;
+    }
+
     return (
         <div className="page-wrap">
-            <header className="page-header">
-                <nav>
-                    <div>link 1</div>
-                    <div>link 2</div>
-                </nav>
-            </header>
+            <Header handleNavbarView={() => navbarToggleView()}/>
+            {navbar}
             <main>
                 <div className="container">
                     <TabsWidget/>

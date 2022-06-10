@@ -1,4 +1,5 @@
 import Aux from "../hoc/Aux";
+import Overlay from "../functional/Overlay";
 
 function Modal(props) {
 
@@ -8,9 +9,13 @@ function Modal(props) {
 
     return (
         <Aux>
-            <div className='modal fade show' id="exampleModal"
-                 tabIndex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+            <div
+                className='modal fade show'
+                id="exampleModal"
+                tabIndex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+            >
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -34,7 +39,7 @@ function Modal(props) {
                     </div>
                 </div>
             </div>
-            <div className="fade modal-backdrop show" onClick={() => modalClose()}></div>
+            <Overlay clicked={props.onModalClose}/>
         </Aux>
     )
 }
