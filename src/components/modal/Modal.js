@@ -39,7 +39,7 @@ function Modal(props) {
                     </div>
                 </div>
             </div>
-            <Overlay clicked={props.onModalClose}/>
+            <Overlay show={props.show} clicked={props.onModalClose}/>
         </Aux>
     )
 }

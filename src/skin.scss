@@ -10,6 +10,16 @@
     background: #fff;
     padding: 20px;
     width: 300px;
+    transition: .3s;
+    transform: translateX(-100%);
+
+    &:not(._open) {
+
+    }
+
+    .nav-panel-open & {
+        transform: translateX(0);
+    }
 }
 
 //

@@ -20,6 +20,16 @@ function App() {
         setNavbarVisibility(!showNavbar);
     }
 
+    useEffect(() => {
+        if (showNavbar) {
+            document.body.classList.add('nav-panel-open');
+        } else {
+            document.body.classList.remove('nav-panel-open');
+        }
+        //document.title = `You clicked ${count} times`;u
+
+    });
+
     if (showModal) {
         modal = <Modal
             onModalClose={() => modalClose()}
@@ -34,9 +44,9 @@ function App() {
     }
 
     let navbar;
-    if (showNavbar) {
-        navbar = <Navbar modalClosed={() => navbarToggleView()}/>;
-    }
+   // if (showNavbar) {
+        navbar = <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>;
+    //}
 
     return (
         <div className="page-wrap">
