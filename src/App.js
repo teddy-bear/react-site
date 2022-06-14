@@ -7,10 +7,10 @@ import Navbar from "./components/navbar/Navbar";
 
 function App() {
 
+    let modal;
+
     const [showModal, setModalVisibility] = useState(false);
     const [showNavbar, setNavbarVisibility] = useState(false);
-
-    let modal;
 
     const modalClose = () => {
         setModalVisibility(false);
@@ -26,8 +26,6 @@ function App() {
         } else {
             document.body.classList.remove('nav-panel-open');
         }
-        //document.title = `You clicked ${count} times`;u
-
     });
 
     if (showModal) {
@@ -43,15 +41,10 @@ function App() {
         document.body.classList.remove('modal-show');
     }
 
-    let navbar;
-   // if (showNavbar) {
-        navbar = <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>;
-    //}
-
     return (
         <div className="page-wrap">
             <Header handleNavbarView={() => navbarToggleView()}/>
-            {navbar}
+            <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
             <main>
                 <div className="container">
                     <TabsWidget/>
