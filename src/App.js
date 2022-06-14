@@ -4,6 +4,7 @@ import TableData from "./components/table/tableData";
 import Modal from "./components/modal/Modal";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
+import Products from "./components/products/Products";
 
 function App() {
 
@@ -41,25 +42,24 @@ function App() {
         document.body.classList.remove('modal-show');
     }
 
-    return (
-        <div className="page-wrap">
-            <Header handleNavbarView={() => navbarToggleView()}/>
-            <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
-            <main>
-                <div className="container">
-                    <TabsWidget/>
-                    <TableData/>
-                    <button className='btn btn-info' onClick={() => setModalVisibility(!showModal)}>
-                        Modal
-                    </button>
-                    {modal}
-                </div>
-            </main>
-            <footer>
-                footer here
-            </footer>
-        </div>
-    );
+    return (<div className="page-wrap">
+        <Header handleNavbarView={() => navbarToggleView()}/>
+        <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
+        <main>
+            <div className="container">
+                <Products/>
+                <TabsWidget/>
+                <TableData/>
+                <button className='btn btn-info' onClick={() => setModalVisibility(!showModal)}>
+                    Modal
+                </button>
+                {modal}
+            </div>
+        </main>
+        <footer>
+            footer here
+        </footer>
+    </div>);
 }
 
 export default App;
