@@ -7,7 +7,7 @@ const Products = () => {
     const [data, setData] = useState({products: [], isFetching: false});
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchData = async () => {
             try {
                 setData({
                     products: data.products,
@@ -28,7 +28,7 @@ const Products = () => {
                 );
             }
         };
-        fetchUsers();
+        fetchData();
     }, []); // [] needed to run only once
 
     return <Product products={data.products.products}
