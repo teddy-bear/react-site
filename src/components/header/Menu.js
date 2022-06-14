@@ -18,7 +18,7 @@ function Menu(props) {
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <a className="navbar-brand" href="#">Navbar</a>
+                <span className="navbar-brand" href="#">Navbar</span>
 
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
