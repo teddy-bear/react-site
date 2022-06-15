@@ -7,6 +7,7 @@ import Navbar from "./components/navbar/Navbar";
 import Products from "./components/products/Products";
 import {Route, Routes} from "react-router-dom";
 import Aux from "./components/hoc/Aux";
+import Page404 from "./components/functional/Page404";
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={pageHome}/>
                         <Route path="/products" element={<Products/>}/>
+                        <Route path="*" element={<Page404/>}/>
                     </Routes>
                 </div>
             </main>
