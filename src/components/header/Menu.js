@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import MenuLink from "./MenuLink";
 
 function Menu(props) {
 
@@ -19,12 +19,8 @@ function Menu(props) {
                 </button>
 
                 <ul className="navbar-nav">
-                    <li className='nav-item'>
-                        <Link className="nav-link active" to='/'>Home</Link>
-                    </li>
-                    <li className='nav-item'>
-                        <Link className="nav-link" to='/products'>Products</Link>
-                    </li>
+                    <MenuLink to='/'>Home</MenuLink>
+                    <MenuLink to='/products'>Products</MenuLink>
                 </ul>
             </div>
         </nav>
