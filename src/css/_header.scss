@@ -1,0 +1,19 @@
+//
+//  Header
+//  ____________________________________________
+.page-header {
+    .navbar-toggler {
+        display: block;
+    }
+
+    //
+    //  Menu
+    //  ---------------------------------------------
+    .navbar-nav {
+        flex-direction: row;
+
+        .nav-link {
+            padding: 8px;
+        }
+    }
+}

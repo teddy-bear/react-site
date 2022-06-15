@@ -1,4 +1,5 @@
 @import "spinner";
+@import "header";
 
 //
 //  Navigation panel
@@ -25,11 +26,17 @@
 }
 
 //
+//  Main column
+//  ____________________________________________
+.main-section {
+    padding: 20px 0;
+}
+
+//
 //  Tabs
 //  ____________________________________________
 .tabs-widget {
     border: 1px solid #f3f3f3;
-    margin: 20px auto;
     border-radius: 5px;
 
     .nav-pills {
