@@ -5,6 +5,8 @@ import Modal from "./components/modal/Modal";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import Products from "./components/products/Products";
+import {Route, Routes} from "react-router-dom";
+import Aux from "./components/hoc/Aux";
 
 function App() {
 
@@ -42,24 +44,32 @@ function App() {
         document.body.classList.remove('modal-show');
     }
 
-    return (<div className="page-wrap">
-        <Header handleNavbarView={() => navbarToggleView()}/>
-        <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
-        <main>
-            <div className="container">
-                <Products/>
-                <TabsWidget/>
-                <TableData/>
-                <button className='btn btn-info' onClick={() => setModalVisibility(!showModal)}>
-                    Modal
-                </button>
-                {modal}
-            </div>
-        </main>
-        <footer>
-            footer here
-        </footer>
-    </div>);
+    let pageHome = <Aux>
+        <TabsWidget/>
+        <TableData/>
+        <button className='btn btn-info' onClick={() => setModalVisibility(!showModal)}>
+            Modal
+        </button>
+        {modal}
+    </Aux>;
+
+    return (
+        <div className="page-wrap">
+            <Header handleNavbarView={() => navbarToggleView()}/>
+            <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
+            <main className="main-section">
+                <div className="container">
+                    <Routes>
+                        <Route path="/" element={pageHome}/>
+                        <Route path="/products" element={<Products/>}/>
+                    </Routes>
+                </div>
+            </main>
+            <footer>
+                footer here
+            </footer>
+        </div>
+    );
 }
 
 export default App;
