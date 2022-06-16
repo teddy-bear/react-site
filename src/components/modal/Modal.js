@@ -1,3 +1,4 @@
+import React from "react";
 import Aux from "../hoc/Aux";
 import Overlay from "../functional/Overlay";
 

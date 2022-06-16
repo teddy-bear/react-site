@@ -1,3 +1,4 @@
+import React from "react";
 import Spinner from "../functional/Spinner";
 
 function Product(props) {

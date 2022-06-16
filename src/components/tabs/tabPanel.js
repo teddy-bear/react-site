@@ -1,3 +1,5 @@
+import React from "react";
+
 function TabPanel(props) {
     let linkCLass = (props.activeTab) ? 'nav-link active' : 'nav-link';
     return (
