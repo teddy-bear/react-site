@@ -1,6 +1,5 @@
 import Spinner from "../functional/Spinner";
 
-
 function Product(props) {
 
     let products = props.products;

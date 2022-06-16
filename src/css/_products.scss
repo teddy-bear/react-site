@@ -1,0 +1,46 @@
+//
+//  Catalog products
+//  ____________________________________________
+.product-list-wrap {
+
+    // View mode toggle
+    .products-mode {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0 20px;
+        align-items: center;
+
+        .mode-toggle {
+            display: flex;
+            color: #000;
+
+            > div:not([data-active="active"]) {
+                color: #ccc;
+            }
+        }
+
+        .material-symbols-outlined {
+            font-size: 30px;
+        }
+    }
+
+    // Product cards
+    .product-list {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        .card {
+            margin-bottom: 30px;
+        }
+
+        &[data-view="grid"] {
+            flex-direction: row;
+
+            .card {
+                width: 44%;
+                margin: 0 3% 30px;
+            }
+        }
+    }
+}

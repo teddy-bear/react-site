@@ -1,10 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Product from "./Product";
+import ProductSwitcher from "./productSwitcher";
 
 const Products = () => {
 
-    const [data, setData] = useState({products: [], isFetching: false});
+    const [data, setData] = useState({
+        products: [],
+        isFetching: false
+    });
+
+    const [viewMode, setViewMode] = useState('list');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,9 +37,42 @@ const Products = () => {
         fetchData();
     }, []); // [] needed to run only once
 
-    return <Product products={data.products.products}
+
+    /**
+     * Product layout view mode handler
+     * @param currentView
+     * @param event
+     */
+    const viewModeToggle = (currentView, event) => {
+        if (currentView !== viewMode) {
+            setViewMode(currentView);
+        }
+    }
+
+    return (
+        <div className="product-list-wrap">
+            <div className="products-mode">
+
+                <div className="show-mode">
+                    Current mode: <strong>{viewMode}</strong>
+                </div>
+
+                <div className="mode-toggle">
+                    <ProductSwitcher view='list' currentView={viewMode}
+                                     handleCLick={(view, event) => viewModeToggle(view, event)}/>
+                    <ProductSwitcher view='grid' currentView={viewMode}
+                                     handleCLick={(view, event) => viewModeToggle(view, event)}/>
+                </div>
+
+            </div>
+            <div className="product-list" data-view={viewMode}>
+                <Product
+                    products={data.products.products}
                     isFetching={data.isFetching}
-    />
+                />
+            </div>
+        </div>
+    );
 
 }
 
