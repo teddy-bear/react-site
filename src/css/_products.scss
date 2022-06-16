@@ -3,7 +3,9 @@
 //  ____________________________________________
 .product-list-wrap {
 
-    // View mode toggle
+    //
+    //  View mode toggle
+    //  ---------------------------------------------
     .products-mode {
         display: flex;
         justify-content: space-between;
@@ -24,7 +26,20 @@
         }
     }
 
-    // Product cards
+    //
+    //  Category filter
+    //  ---------------------------------------------
+    .category-filter {
+        padding-bottom: 20px;
+
+        .btn {
+            text-transform: capitalize;
+        }
+    }
+
+    //
+    //  Product cards
+    //  ---------------------------------------------
     .product-list {
         display: flex;
         flex-direction: column;
