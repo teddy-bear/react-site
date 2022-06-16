@@ -13,7 +13,7 @@ const CategoryFilterButton = (props) => {
             type="button"
             className={`btn btn-primary ${active}`}
             onClick={() => setCategory(props.category)}>
-            {props.children}
+            {props.children || 'All'}
         </button>
     );
 }

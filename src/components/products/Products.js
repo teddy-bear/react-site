@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Product from "./Product";
 import ProductSwitcher from "./productSwitcher";
-import CategoryFilterButton from "./CategoryFilterButton";
 import CategoryFilter from "./CategoryFilter";
 
 const Products = () => {
+
+    const PRODUCT_API = 'https://dummyjson.com/products?limit=12';
 
     const [data, setData] = useState({
         products: [],
@@ -25,7 +26,7 @@ const Products = () => {
                     products: data.products,
                     isFetching: true
                 });
-                const response = await axios.get('https://dummyjson.com/products?limit=10');
+                const response = await axios.get(PRODUCT_API);
                 setData({
                         products: response.data,
                         isFetching: false
@@ -72,7 +73,6 @@ const Products = () => {
             }
         }
 
-
         setFilterCategory({
             results: results,
             currentCategory: category
@@ -80,39 +80,19 @@ const Products = () => {
     }
 
     // Source to load the products array: original query or category filter
-    let products = filterCategory.currentCategory.length > 0 ? filterCategory.results : data.products.products;
+    let products = filterCategory.currentCategory !== '' ? filterCategory.results : data.products.products;
 
     return (
         <div className="product-list-wrap">
 
-            <div className="category-filter">
-                <div className="btn-group">
-                    <CategoryFilterButton
-                        category=''
-                        currentCategory={filterCategory.currentCategory}
-                        handleClick={(category) => filterByCategory(category)}
-                    >
-                        All
-                    </CategoryFilterButton>
-                    <CategoryFilterButton
-                        category='smartphones'
-                        currentCategory={filterCategory.currentCategory}
-                        handleClick={(category) => filterByCategory(category)}
-                    >
-                        Smartphones
-                    </CategoryFilterButton>
-                    <CategoryFilterButton
-                        category='laptops'
-                        currentCategory={filterCategory.currentCategory}
-                        handleClick={(category) => filterByCategory(category)}
-                    >
-                        Laptops
-                    </CategoryFilterButton>
-                </div>
-            </div>
+            <CategoryFilter
+                products={data.products.products}
+                handleClick={(category) => filterByCategory(category)}
+                currentCategory={filterCategory.currentCategory}
+            />
 
+            {/* todo: move layout toggle to a separate widget */}
             <div className="products-mode">
-
                 <div className="show-mode">
                     Current mode: <strong>{viewMode}</strong>
                 </div>
@@ -123,14 +103,15 @@ const Products = () => {
                     <ProductSwitcher view='grid' currentView={viewMode}
                                      handleCLick={(view, event) => viewModeToggle(view, event)}/>
                 </div>
-
             </div>
+
             <div className="product-list" data-view={viewMode}>
                 <Product
                     products={products}
                     isFetching={data.isFetching}
                 />
             </div>
+
         </div>
     );
 
