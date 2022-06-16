@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import {Route, Routes} from "react-router-dom";
 import TabsWidget from './components/tabs/tabsWidget';
 import TableData from "./components/table/tableData";
 import Modal from "./components/modal/Modal";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import Products from "./components/products/Products";
-import {Route, Routes} from "react-router-dom";
 import Aux from "./components/hoc/Aux";
 import Page404 from "./components/functional/Page404";
 
