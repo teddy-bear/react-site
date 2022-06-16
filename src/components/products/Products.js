@@ -91,6 +91,10 @@ const Products = () => {
                 currentCategory={filterCategory.currentCategory}
             />
 
+            <div className="results">
+                Total: <strong>{products.length}</strong> products found
+            </div>
+
             {/* todo: move layout toggle to a separate widget */}
             <div className="products-mode">
                 <div className="show-mode">
