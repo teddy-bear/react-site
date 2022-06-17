@@ -1,5 +1,23 @@
 @import "header";
 @import "products";
+@import "pdp";
+
+//
+//  Shared classes
+//  ____________________________________________
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spinner-wrap {
+    text-align: center;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 //
 //  Navigation panel
@@ -101,12 +119,6 @@
 
     }
 
-    .actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
     .modal-footer {
         display: none;
     }
@@ -115,6 +127,7 @@
 .modal-show {
     .modal.fade {
         z-index: 1055;
+
         .modal-dialog {
             opacity: 1;
         }
@@ -125,10 +138,6 @@
 //  Footer
 //  _____________________________________________
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     background: #3171bfee;
     color: #fff;
     padding: 20px;

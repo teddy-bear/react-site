@@ -20,13 +20,6 @@ function App() {
 
     const [showNavbar, setNavbarVisibility] = useState(false);
 
-    const modalClose = () => {
-        setModal({
-            show: false,
-            content: ''
-        });
-    }
-
     const navbarToggleView = () => {
         setNavbarVisibility(!showNavbar);
     }
@@ -77,7 +70,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={pageHome}/>
                             <Route path="/products" element={<Products/>}/>
-                            <Route path="/products/product_:id" element={<ProductPage/>}/>
+                            <Route path="/products/product/:id" element={<ProductPage/>}/>
                             <Route path="*" element={<Page404/>}/>
                         </Routes>
                     </div>
