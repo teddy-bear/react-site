@@ -82,6 +82,8 @@ const Products = () => {
     // Source to load the products array: original query or category filter
     let products = filterCategory.currentCategory !== '' ? filterCategory.results : data.products.products;
 
+    let productsCount = products ? products.length : '';
+
     return (
         <div className="product-list-wrap">
 
@@ -92,7 +94,7 @@ const Products = () => {
             />
 
             <div className="results">
-                Total: <strong>{products.length}</strong> products found
+                Total: <strong>{productsCount}</strong> products found
             </div>
 
             {/* todo: move layout toggle to a separate widget */}
