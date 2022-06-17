@@ -4,10 +4,6 @@ import Overlay from "../functional/Overlay";
 
 function Modal(props) {
 
-    const modalClose = () => {
-        props.onModalClose();
-    }
-
     //if (props.show) {
     return (
         <Aux>
@@ -21,7 +17,7 @@ function Modal(props) {
                                 className="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
-                                onClick={() => modalClose()}
+                                onClick={props.handleModal}
                             >
                             </button>
                         </div>
@@ -36,7 +32,7 @@ function Modal(props) {
                     </div>
                 </div>
             </div>
-            <Overlay show={props.show} clicked={props.onModalClose}/>
+            <Overlay show={props.show} clicked={props.handleModal}/>
         </Aux>
     )
     ///}

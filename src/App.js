@@ -9,6 +9,7 @@ import Products from "./components/products/Products";
 import Aux from "./components/hoc/Aux";
 import Page404 from "./components/functional/Page404";
 import {ModalProvider} from "./components/modal/modalContext";
+import ProductPage from "./components/pdp/productPage";
 
 function App() {
 
@@ -43,8 +44,13 @@ function App() {
         }
     });
 
-    const initModal = (show = false, modalContent = '', modalTitle = false) => {
-
+    /**
+     * Configure modal options
+     * @param show
+     * @param modalContent
+     * @param modalTitle
+     */
+    const handleModal = (show = false, modalContent = '', modalTitle = false) => {
         setModal({
             show: show,
             content: modalContent,
@@ -52,25 +58,26 @@ function App() {
         });
     }
 
+    /*Temp section*/
     let modalTabs = <TabsWidget/>;
-
     let pageHome = <Aux>
         <TableData/>
-        <button className='btn btn-info' onClick={() => initModal(true, modalTabs)}>
+        <button className='btn btn-info' onClick={() => handleModal(true, modalTabs)}>
             Modal
         </button>
     </Aux>;
 
     return (
         <div className="page-wrap">
-            <ModalProvider value={initModal}>
+            <ModalProvider value={handleModal}>
                 <Header handleNavbarView={() => navbarToggleView()}/>
-                <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
+                <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()}/>
                 <main className="main-section">
                     <div className="container">
                         <Routes>
                             <Route path="/" element={pageHome}/>
                             <Route path="/products" element={<Products/>}/>
+                            <Route path="/products/product_:id" element={<ProductPage/>}/>
                             <Route path="*" element={<Page404/>}/>
                         </Routes>
                     </div>
@@ -79,7 +86,7 @@ function App() {
                     footer here
                 </footer>
                 <Modal
-                    onModalClose={() => modalClose()}
+                    handleModal={() => handleModal()}
                     show={modal.show}
                     title={modal.title}
                 >

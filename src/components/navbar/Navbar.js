@@ -8,7 +8,7 @@ function Navbar(props) {
             <div className="nav-panel">
                 navbar slide panel
             </div>
-            <Overlay show={props.show} clicked={props.modalClosed}/>
+            <Overlay show={props.show} clicked={props.handleNavbar}/>
         </Aux>
     )
 

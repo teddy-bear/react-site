@@ -1,4 +1,5 @@
 import React, {useContext} from "react";
+import {Link} from "react-router-dom";
 import ModalContext from "../modal/modalContext";
 import Spinner from "../functional/Spinner";
 
@@ -34,10 +35,19 @@ function Product(props) {
                     <div className="card-body">
                         <h5 className="card-title">{item.title}</h5>
                         <p className="card-text">{item.description}</p>
-                        <div className="btn btn-primary"
-                             onClick={() => handleModal(true, modalContent, item.title)}>
-                            Buy now
+                        <div className="actions">
+                            <div className="btn btn-primary"
+                                 onClick={() => handleModal(true, modalContent, item.title)}>
+                                Buy now
+                            </div>
+                            <Link
+                                to={`/products/product_${item.id}`}
+                                className='btn btn-secondary'
+                            >
+                                quick view
+                            </Link>
                         </div>
+
                     </div>
                 </div>
             );
