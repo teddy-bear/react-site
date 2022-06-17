@@ -8,19 +8,14 @@ function Modal(props) {
         props.onModalClose();
     }
 
+    //if (props.show) {
     return (
         <Aux>
-            <div
-                className='modal fade show'
-                id="exampleModal"
-                tabIndex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-            >
+            <div className='modal fade show' tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">{props.title}</h5>
+                            <h5 className="modal-title">{props.title || 'Modal'}</h5>
                             <button
                                 type="button"
                                 className="btn-close"
@@ -34,7 +29,8 @@ function Modal(props) {
                             {props.children}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
+                            </button>
                             <button type="button" className="btn btn-primary">Save changes</button>
                         </div>
                     </div>
@@ -43,6 +39,7 @@ function Modal(props) {
             <Overlay show={props.show} clicked={props.onModalClose}/>
         </Aux>
     )
+    ///}
 }
 
 export default Modal;

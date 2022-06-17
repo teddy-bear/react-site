@@ -8,16 +8,22 @@ import Navbar from "./components/navbar/Navbar";
 import Products from "./components/products/Products";
 import Aux from "./components/hoc/Aux";
 import Page404 from "./components/functional/Page404";
+import {ModalProvider} from "./components/modal/modalContext";
 
 function App() {
 
-    let modal;
+    const [modal, setModal] = useState({
+        show: false,
+        content: ''
+    });
 
-    const [showModal, setModalVisibility] = useState(false);
     const [showNavbar, setNavbarVisibility] = useState(false);
 
     const modalClose = () => {
-        setModalVisibility(false);
+        setModal({
+            show: false,
+            content: ''
+        });
     }
 
     const navbarToggleView = () => {
@@ -30,46 +36,56 @@ function App() {
         } else {
             document.body.classList.remove('nav-panel-open');
         }
+        if (modal.show) {
+            document.body.classList.add('modal-show');
+        } else {
+            document.body.classList.remove('modal-show');
+        }
     });
 
-    if (showModal) {
-        modal = <Modal
-            onModalClose={() => modalClose()}
-            show={showModal}
-            title='Modal title'
-        >
-            modal content here
-        </Modal>;
-        document.body.classList.add('modal-show');
-    } else {
-        document.body.classList.remove('modal-show');
+    const initModal = (show = false, modalContent = '', modalTitle = false) => {
+
+        setModal({
+            show: show,
+            content: modalContent,
+            title: modalTitle
+        });
     }
 
+    let modalTabs = <TabsWidget/>;
+
     let pageHome = <Aux>
-        <TabsWidget/>
         <TableData/>
-        <button className='btn btn-info' onClick={() => setModalVisibility(!showModal)}>
+        <button className='btn btn-info' onClick={() => initModal(true, modalTabs)}>
             Modal
         </button>
-        {modal}
     </Aux>;
 
     return (
         <div className="page-wrap">
-            <Header handleNavbarView={() => navbarToggleView()}/>
-            <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
-            <main className="main-section">
-                <div className="container">
-                    <Routes>
-                        <Route path="/" element={pageHome}/>
-                        <Route path="/products" element={<Products/>}/>
-                        <Route path="*" element={<Page404/>}/>
-                    </Routes>
-                </div>
-            </main>
-            <footer>
-                footer here
-            </footer>
+            <ModalProvider value={initModal}>
+                <Header handleNavbarView={() => navbarToggleView()}/>
+                <Navbar show={showNavbar} modalClosed={() => navbarToggleView()}/>
+                <main className="main-section">
+                    <div className="container">
+                        <Routes>
+                            <Route path="/" element={pageHome}/>
+                            <Route path="/products" element={<Products/>}/>
+                            <Route path="*" element={<Page404/>}/>
+                        </Routes>
+                    </div>
+                </main>
+                <footer>
+                    footer here
+                </footer>
+                <Modal
+                    onModalClose={() => modalClose()}
+                    show={modal.show}
+                    title={modal.title}
+                >
+                    {modal.content}
+                </Modal>
+            </ModalProvider>
         </div>
     );
 }

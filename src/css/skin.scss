@@ -92,11 +92,19 @@
 //  _____________________________________________
 .modal.fade {
     display: block;
+    z-index: -1;
     pointer-events: none; // need to make overlay clickable
 
     .modal-dialog {
         opacity: 0;
-        transition: .7s;
+        transition: .3s;
+
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .modal-footer {
@@ -106,6 +114,7 @@
 
 .modal-show {
     .modal.fade {
+        z-index: 1055;
         .modal-dialog {
             opacity: 1;
         }
