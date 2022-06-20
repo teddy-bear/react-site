@@ -8,7 +8,7 @@ import Navbar from "./components/navbar/Navbar";
 import Products from "./components/products/Products";
 import Aux from "./components/hoc/Aux";
 import Page404 from "./components/functional/Page404";
-import {ModalProvider} from "./components/modal/modalContext";
+import {GlobalProvider} from "./components/context/globalContext";
 import ProductPage from "./components/pdp/productPage";
 import Minicart from "./components/minicart/Minicart";
 
@@ -22,6 +22,12 @@ function App() {
     const [showNavbar, setNavbarVisibility] = useState(false);
     const [showMinicart, setMinicartVisibility] = useState(false);
 
+    //todo: merge with showMinicart hook
+    const [minicart, setMinicart] = useState({
+        show: false,
+        products: ''
+    });
+
     const navbarToggleView = () => {
         setNavbarVisibility(!showNavbar);
     }
@@ -29,6 +35,7 @@ function App() {
     const minicartToggleView = () => {
         setMinicartVisibility(!showMinicart);
     }
+
 
     useEffect(() => {
         if (showNavbar) {
@@ -62,6 +69,13 @@ function App() {
         });
     }
 
+    const handleMinicart = (show = false, products) => {
+        setMinicart({
+            show: show,
+            products: [...minicart.products, products],
+        })
+    }
+
     /*Temp section*/
     let modalTabs = <TabsWidget/>;
     let pageHome = <Aux>
@@ -73,11 +87,12 @@ function App() {
 
     return (
         <div className="page-wrap">
-            <ModalProvider value={handleModal}>
+            <GlobalProvider value={{modal: handleModal, minicart: handleMinicart}}>
                 <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
                 <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()}/>
                 <Minicart
                     show={showMinicart}
+                    minicart={minicart}
                     handleMinicartView={() => minicartToggleView()}
                 />
                 <main className="main-section">
@@ -100,7 +115,7 @@ function App() {
                 >
                     {modal.content}
                 </Modal>
-            </ModalProvider>
+            </GlobalProvider>
         </div>
     );
 }

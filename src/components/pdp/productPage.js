@@ -61,7 +61,7 @@ function ProductPage() {
                 <div className="link-primary" onClick={() => navigate(-1)}>
                     go back
                 </div>
-                <div className="btn btn-primary">
+                <div className="btn btn-primary" onClick={() => navigate(1)}>
                     buy now
                 </div>
             </div>

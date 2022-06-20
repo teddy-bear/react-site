@@ -1,6 +1,6 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import ModalContext from "../modal/modalContext";
+import GlobalContext from "../context/globalContext";
 import Spinner from "../functional/Spinner";
 
 function Product(props) {
@@ -9,10 +9,16 @@ function Product(props) {
 
     let content = <Spinner/>;
 
-    const modalContext = useContext(ModalContext);
+    const {modal, minicart} = React.useContext(GlobalContext);
+    /*const [stateValue, setStateValue] = modal;
+    const [stateValue2, setStateValue2] = value2;*/
 
     const handleModal = (show, modalContent, modalTitle) => {
-        modalContext(show, modalContent, modalTitle);
+        modal(show, modalContent, modalTitle);
+    }
+
+    const handleMinicart = (show, products) => {
+        minicart(show, products);
     }
 
     if (products) {
@@ -42,7 +48,10 @@ function Product(props) {
                         </div>
                         <div className="actions">
                             <div className="btn btn-primary"
-                                 onClick={() => handleModal(true, modalContent, item.title)}>
+                                 onClick={() => {
+                                     handleModal(true, modalContent, item.title);
+                                     handleMinicart(false, item)
+                                 }}>
                                 Buy now
                             </div>
                             <Link
