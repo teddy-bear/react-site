@@ -2,6 +2,7 @@ import React from "react";
 import Overlay from "../functional/Overlay";
 import Aux from "../hoc/Aux";
 import MinicartItem from "./minicartItem";
+import {Link} from "react-router-dom";
 
 function Minicart(props) {
 
@@ -13,7 +14,8 @@ function Minicart(props) {
         cartItems = 'no products yet',
         totalPrice,
         dataFilled = '',
-        sum = 0;
+        sum = 0,
+        checkoutLink;
 
 
     if (products.length) {
@@ -32,6 +34,12 @@ function Minicart(props) {
             <span>Total:</span>
             <strong>${sum}</strong>
         </div>
+        checkoutLink = <Link
+            to='/checkout'
+            className='btn btn-primary'
+        >
+            Checkout
+        </Link>
     }
 
     return (
@@ -42,6 +50,7 @@ function Minicart(props) {
                     {cartItems}
                 </div>
                 {totalPrice}
+                {checkoutLink}
             </div>
             <Overlay show={props.show} clicked={props.handleMinicartView}/>
         </Aux>

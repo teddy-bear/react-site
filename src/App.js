@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import TabsWidget from './components/tabs/tabsWidget';
 import TableData from "./components/table/tableData";
 import Modal from "./components/modal/Modal";
@@ -11,6 +11,7 @@ import Page404 from "./components/functional/Page404";
 import {GlobalProvider} from "./components/context/globalContext";
 import ProductPage from "./components/pdp/productPage";
 import Minicart from "./components/minicart/Minicart";
+import Checkout from "./components/checkout/Checkout";
 
 function App() {
 
@@ -35,6 +36,20 @@ function App() {
     const minicartToggleView = () => {
         setMinicartVisibility(!showMinicart);
     }
+
+    /**
+     * Disable all popovers on the url update
+     * @type {Location<LocationState>}
+     */
+    let location = useLocation();
+    useEffect(() => {
+
+        setNavbarVisibility(false);
+        setMinicartVisibility(false);
+        setModal({
+            show:false
+        });
+    }, [location]);
 
 
     useEffect(() => {
@@ -116,6 +131,7 @@ function App() {
                             <Route path="/" element={pageHome}/>
                             <Route path="/products" element={<Products/>}/>
                             <Route path="/products/product/:id" element={<ProductPage/>}/>
+                            <Route path="/checkout" element={<Checkout/>}/>
                             <Route path="*" element={<Page404/>}/>
                         </Routes>
                     </div>

@@ -59,7 +59,12 @@ function Product(props) {
                         className='link-primary'>
                         Continue shopping
                     </span>
-                    <button className="btn btn-primary">Checkout</button>
+                    <Link
+                        to='/checkout'
+                        className='btn btn-primary'
+                    >
+                        Checkout
+                    </Link>
                 </div>
             </div>;
 
