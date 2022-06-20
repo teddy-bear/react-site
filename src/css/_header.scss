@@ -86,6 +86,12 @@
         transform: translateX(0);
     }
 
+    h2 {
+        margin-bottom: 20px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #efefef;
+    }
+
     .item {
         display: flex;
         padding: 0 15px 15px 0;

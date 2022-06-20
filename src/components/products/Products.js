@@ -13,7 +13,7 @@ const Products = () => {
         isFetching: false
     });
 
-    const [viewMode, setViewMode] = useState('list');
+    const [viewMode, setViewMode] = useState('grid');
     const [filterCategory, setFilterCategory] = useState({
         results: '',
         currentCategory: ''

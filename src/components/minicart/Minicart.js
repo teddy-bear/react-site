@@ -9,16 +9,30 @@ function Minicart(props) {
           props.onModalClose();
       }*/
 
-    let products = props.minicart.products;
-    let cartItems = 'no products yet';
+    let products = props.minicart.products,
+        cartItems = 'no products yet',
+        totalPrice,
+        dataFilled = '',
+        sum = 0;
+
 
     if (products.length) {
+        dataFilled = 'filled';
+
         cartItems = products.map((item, index) => {
             return <MinicartItem item={item} key={index}/>;
         });
-    }
 
-    let dataFilled = products.length ? 'filled' : '';
+        const arr = products.map((item) => {
+            return item.price;
+        });
+        arr.forEach((item) => sum += item);
+
+        totalPrice = <div className="price-total actions">
+            <span>Total:</span>
+            <strong>${sum}</strong>
+        </div>
+    }
 
     return (
         <Aux>
@@ -27,10 +41,7 @@ function Minicart(props) {
                 <div className="items">
                     {cartItems}
                 </div>
-                <div className="price-total actions">
-                    <span>Total:</span>
-                    <h5>$999</h5>
-                </div>
+                {totalPrice}
             </div>
             <Overlay show={props.show} clicked={props.handleMinicartView}/>
         </Aux>
