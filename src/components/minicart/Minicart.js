@@ -12,7 +12,7 @@ function Minicart(props) {
     let products = props.minicart.products;
     let cartItems = 'no products yet';
 
-    if (products) {
+    if (products.length) {
         cartItems = products.map((item, index) => {
             return <MinicartItem item={item} key={index}/>;
         });

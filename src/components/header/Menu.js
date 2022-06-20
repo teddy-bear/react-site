@@ -1,5 +1,6 @@
 import React from "react";
 import MenuLink from "./MenuLink";
+import GlobalContext from "../context/globalContext";
 
 function Menu(props) {
 
@@ -9,6 +10,15 @@ function Menu(props) {
 
     const toggleMinicart = () => {
         props.handleMinicartView();
+    }
+
+    const {getMinicart} = React.useContext(GlobalContext);
+
+    let dataFilled = '';
+    let count = '';
+    if (getMinicart.products.length) {
+        dataFilled = 'filled';
+        count = <span className='count'>{getMinicart.products.length}</span>
     }
 
     return (
@@ -25,8 +35,9 @@ function Menu(props) {
                 <ul className="navbar-nav">
                     <MenuLink to='/'>Home</MenuLink>
                     <MenuLink to='/products'>Products</MenuLink>
-                    <li className='nav-item link-minicart' onClick={() => toggleMinicart()}>
+                    <li className='nav-item link-minicart' data-filled={dataFilled} onClick={() => toggleMinicart()}>
                         <span className="material-symbols-outlined">shopping_bag</span>
+                        {count}
                     </li>
                 </ul>
             </div>

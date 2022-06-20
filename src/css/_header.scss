@@ -12,6 +12,10 @@
     .navbar-nav {
         flex-direction: row;
 
+        .nav-item {
+            margin: 0 5px;
+        }
+
         .nav-link {
             padding: 8px;
         }
@@ -19,10 +23,24 @@
         .link-minicart {
             display: flex;
             align-items: center;
-            width: 40px;
             justify-content: center;
-            border: 1px solid;
             cursor: pointer;
+            position: relative;
+
+            .material-symbols-outlined {
+                font-size: 38px;
+            }
+
+            span.count {
+                font-size: 12px;
+                position: absolute;
+                top: 14px;
+            }
+
+            &[data-filled='filled'] {
+                background: #06b0d3;
+                color: #fff;
+            }
         }
     }
 }
