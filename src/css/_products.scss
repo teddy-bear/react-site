@@ -18,6 +18,7 @@
 
             > div:not([data-active="active"]) {
                 color: #ccc;
+                cursor: pointer;
             }
         }
 
