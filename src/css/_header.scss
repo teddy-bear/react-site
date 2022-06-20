@@ -67,4 +67,33 @@
     .minicart-open & {
         transform: translateX(0);
     }
+
+    .item {
+        display: flex;
+        padding: 0 15px 15px 0;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        position: relative;
+
+        figure {
+            width: 100px;
+            margin: 0 15px 0 0;
+        }
+
+        .price {
+            display: block;
+        }
+
+        .icon-remove {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            color: #777;
+
+            &:hover {
+                color: #000;
+            }
+        }
+    }
 }

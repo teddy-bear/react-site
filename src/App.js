@@ -69,10 +69,25 @@ function App() {
         });
     }
 
-    const handleMinicart = (show = false, products) => {
+    /**
+     * Update Minicart state
+     * @param show
+     * @param products
+     * @param remove
+     */
+    const handleMinicart = (show = false, products, remove) => {
+
+        let newProducts = [...minicart.products];
+
+        if (remove) {
+            newProducts = [...products];
+        } else if (products && typeof products === 'object') {
+            newProducts = [...minicart.products, products]
+        }
+
         setMinicart({
             show: show,
-            products: [...minicart.products, products],
+            products: newProducts,
         })
     }
 
@@ -87,7 +102,7 @@ function App() {
 
     return (
         <div className="page-wrap">
-            <GlobalProvider value={{modal: handleModal, minicart: handleMinicart}}>
+            <GlobalProvider value={{modal: handleModal, updateMinicart: handleMinicart, getMinicart: minicart}}>
                 <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
                 <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()}/>
                 <Minicart

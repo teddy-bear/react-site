@@ -12,20 +12,24 @@ function Minicart(props) {
     let products = props.minicart.products;
     let cartItems = 'no products yet';
 
-    if (cartItems) {
+    if (products) {
         cartItems = products.map((item, index) => {
             return <MinicartItem item={item} key={index}/>;
         });
     }
 
+    let dataFilled = products.length ? 'filled' : '';
 
     return (
         <Aux>
-            <div className="minicart slide-panel">
+            <div className="minicart slide-panel" data-filled={dataFilled}>
                 <h2>Minicart</h2>
-                {cartItems}
-                <div className="price-total">
-                    Total: <strong>$999</strong>
+                <div className="items">
+                    {cartItems}
+                </div>
+                <div className="price-total actions">
+                    <span>Total:</span>
+                    <h5>$999</h5>
                 </div>
             </div>
             <Overlay show={props.show} clicked={props.handleMinicartView}/>

@@ -1,4 +1,5 @@
 import React from "react";
+import GlobalContext from "../context/globalContext";
 
 function MinicartItem(props) {
 
@@ -6,11 +7,34 @@ function MinicartItem(props) {
           props.onModalClose();
       }*/
 
+    const {updateMinicart, getMinicart} = React.useContext(GlobalContext);
+
+    const minicartProducts = getMinicart.products;
+
+    /**
+     * Remove item from the cart, pass updated products array
+     * @param id
+     */
+    const removeItem = (id) => {
+        const arr = minicartProducts.filter((item) => {
+            return item.id !== id;
+        })
+
+        updateMinicart(true, arr, true);
+    }
+
+
     return (
         <div className="item">
-            {props.item.title} =
-            {props.item.children}
-            <hr/>
+            <figure>
+                <img src={props.item.thumbnail} alt={props.item.title}/>
+            </figure>
+            <div className="info">
+                <strong>{props.item.title}</strong>
+                <div className='price'>${props.item.price}</div>
+            </div>
+            <span className="icon-remove material-symbols-outlined"
+                  onClick={() => removeItem(props.item.id)}>close</span>
         </div>
     )
 }

@@ -9,20 +9,48 @@ function Product(props) {
 
     let content = <Spinner/>;
 
-    const {modal, minicart} = React.useContext(GlobalContext);
+    const {modal, updateMinicart, getMinicart} = React.useContext(GlobalContext);
     /*const [stateValue, setStateValue] = modal;
     const [stateValue2, setStateValue2] = value2;*/
+
+    const minicartProducts = getMinicart.products;
+
+    let minicartProductsID = [];
+    if (minicartProducts) {
+        minicartProductsID = minicartProducts.map((item) => {
+            return item.id;
+        });
+    }
 
     const handleModal = (show, modalContent, modalTitle) => {
         modal(show, modalContent, modalTitle);
     }
 
     const handleMinicart = (show, products) => {
-        minicart(show, products);
+        updateMinicart(show, products);
     }
 
     if (products) {
         content = products.map((item, index) => {
+
+            // todo: reduce repeated code
+            let btn = <div className="btn btn-primary"
+                           onClick={() => {
+                               handleModal(true, modalContent, item.title);
+                               handleMinicart(false, item)
+                           }}>
+                Buy now
+            </div>
+            if (minicartProductsID.includes(item.id)) {
+                btn = <div className="btn btn-success disabled"
+                           onClick={() => {
+                               handleModal(true, modalContent, item.title);
+                               handleMinicart(false, item)
+                           }}>
+                    Added to cart
+                </div>
+            }
+
             let modalContent = <div className="inner">
                 <p>Product was added to the cart.</p>
                 <div className="actions">
@@ -47,13 +75,7 @@ function Product(props) {
                             </p>
                         </div>
                         <div className="actions">
-                            <div className="btn btn-primary"
-                                 onClick={() => {
-                                     handleModal(true, modalContent, item.title);
-                                     handleMinicart(false, item)
-                                 }}>
-                                Buy now
-                            </div>
+                            {btn}
                             <Link
                                 to={`/products/product/${item.id}`}
                                 className='btn btn-secondary'
