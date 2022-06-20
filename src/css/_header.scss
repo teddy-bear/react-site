@@ -15,5 +15,55 @@
         .nav-link {
             padding: 8px;
         }
+
+        .link-minicart {
+            display: flex;
+            align-items: center;
+            width: 40px;
+            justify-content: center;
+            border: 1px solid;
+        }
+    }
+}
+
+//
+//  Slide panels : navbar & minicart
+//  ____________________________________________
+.slide-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 5000;
+    background: #fff;
+    padding: 20px;
+    width: 300px;
+    transition: .3s;
+    /*.slide-panel-open & {
+        transform: translateX(0);
+    }*/
+}
+
+//
+//  Navigation panel
+//  ____________________________________________
+.nav-panel {
+    left: 0;
+    transform: translateX(-100%);
+
+    .nav-panel-open & {
+        transform: translateX(0);
+    }
+
+}
+
+//
+//  Navigation panel
+//  ____________________________________________
+.minicart {
+    right: 0;
+    transform: translateX(100%);
+
+    .minicart-open & {
+        transform: translateX(0);
     }
 }

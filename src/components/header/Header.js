@@ -9,7 +9,7 @@ function Header(props) {
 
     return (
         <header className="page-header">
-            <Menu handleNavbarView={props.handleNavbarView}/>
+            <Menu handleNavbarView={props.handleNavbarView} handleMinicartView={props.handleMinicartView}/>
         </header>
     )
 }

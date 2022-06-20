@@ -5,7 +5,7 @@ import Overlay from "../functional/Overlay";
 function Navbar(props) {
     return (
         <Aux>
-            <div className="nav-panel">
+            <div className="nav-panel slide-panel">
                 navbar slide panel
             </div>
             <Overlay show={props.show} clicked={props.handleNavbar}/>

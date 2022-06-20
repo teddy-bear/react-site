@@ -10,6 +10,7 @@ import Aux from "./components/hoc/Aux";
 import Page404 from "./components/functional/Page404";
 import {ModalProvider} from "./components/modal/modalContext";
 import ProductPage from "./components/pdp/productPage";
+import Minicart from "./components/minicart/Minicart";
 
 function App() {
 
@@ -19,9 +20,14 @@ function App() {
     });
 
     const [showNavbar, setNavbarVisibility] = useState(false);
+    const [showMinicart, setMinicartVisibility] = useState(false);
 
     const navbarToggleView = () => {
         setNavbarVisibility(!showNavbar);
+    }
+
+    const minicartToggleView = () => {
+        setMinicartVisibility(!showMinicart);
     }
 
     useEffect(() => {
@@ -34,6 +40,11 @@ function App() {
             document.body.classList.add('modal-show');
         } else {
             document.body.classList.remove('modal-show');
+        }
+        if (showMinicart) {
+            document.body.classList.add('minicart-open');
+        } else {
+            document.body.classList.remove('minicart-open');
         }
     });
 
@@ -63,8 +74,12 @@ function App() {
     return (
         <div className="page-wrap">
             <ModalProvider value={handleModal}>
-                <Header handleNavbarView={() => navbarToggleView()}/>
+                <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
                 <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()}/>
+                <Minicart
+                    show={showMinicart}
+                    handleMinicartView={() => minicartToggleView()}
+                />
                 <main className="main-section">
                     <div className="container">
                         <Routes>

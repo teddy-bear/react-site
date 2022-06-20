@@ -20,30 +20,6 @@
 }
 
 //
-//  Navigation panel
-//  ____________________________________________
-.nav-panel {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 5000;
-    background: #fff;
-    padding: 20px;
-    width: 300px;
-    transition: .3s;
-    transform: translateX(-100%);
-
-    &:not(._open) {
-
-    }
-
-    .nav-panel-open & {
-        transform: translateX(0);
-    }
-}
-
-//
 //  Main column
 //  ____________________________________________
 .main-section {
