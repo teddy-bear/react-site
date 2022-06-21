@@ -58,6 +58,20 @@
                 width: 44%;
                 margin: 0 3% 30px;
             }
+
+            .actions {
+                @media all and (max-width: 767px) {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    > .btn {
+                        width: 100%;
+
+                        &:first-child {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
         }
     }
 
