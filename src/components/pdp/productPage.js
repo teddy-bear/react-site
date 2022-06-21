@@ -8,7 +8,8 @@ import GlobalContext from "../context/globalContext";
 function ProductPage() {
 
     const params = useParams(), navigate = useNavigate(),
-        url = `https://dummyjson.com/products/${params.id}`, [product, setProduct] = useState({});
+        url = `https://dummyjson.com/products/${params.id}`,
+        [product, setProduct] = useState({});
 
     useEffect(() => {
         const getProduct = async () => {

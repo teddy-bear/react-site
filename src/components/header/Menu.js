@@ -1,6 +1,7 @@
 import React from "react";
 import MenuLink from "./MenuLink";
 import GlobalContext from "../context/globalContext";
+import {useLocation} from "react-router-dom";
 
 function Menu(props) {
 
@@ -21,6 +22,15 @@ function Menu(props) {
         count = <span className='count'>{getMinicart.products.length}</span>
     }
 
+    let location = useLocation(),
+        miniCartLink;
+    if (location.pathname !== '/checkout') {
+        miniCartLink = <li className='nav-item link-minicart' data-filled={dataFilled} onClick={() => toggleMinicart()}>
+            <span className="material-symbols-outlined">shopping_bag</span>
+            {count}
+        </li>
+    }
+
     return (
         <nav className="navbar navbar-expand-lg bg-light">
             <div className="container">
@@ -35,10 +45,7 @@ function Menu(props) {
                 <ul className="navbar-nav">
                     <MenuLink to='/'>Home</MenuLink>
                     <MenuLink to='/products'>Products</MenuLink>
-                    <li className='nav-item link-minicart' data-filled={dataFilled} onClick={() => toggleMinicart()}>
-                        <span className="material-symbols-outlined">shopping_bag</span>
-                        {count}
-                    </li>
+                    {miniCartLink}
                 </ul>
             </div>
         </nav>

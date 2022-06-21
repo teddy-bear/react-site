@@ -47,7 +47,7 @@ function App() {
         setNavbarVisibility(false);
         setMinicartVisibility(false);
         setModal({
-            show:false
+            show: false
         });
     }, [location]);
 
@@ -115,23 +115,30 @@ function App() {
         </button>
     </Aux>;
 
+    let miniCartComponent = <Minicart
+        show={showMinicart}
+        minicart={minicart}
+        handleMinicartView={() => minicartToggleView()}
+    />;
+
+    let miniCartComponentHeader;
+    if (location.pathname !== '/checkout') {
+        miniCartComponentHeader = miniCartComponent;
+    }
+
     return (
         <div className="page-wrap">
             <GlobalProvider value={{modal: handleModal, updateMinicart: handleMinicart, getMinicart: minicart}}>
                 <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
                 <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()}/>
-                <Minicart
-                    show={showMinicart}
-                    minicart={minicart}
-                    handleMinicartView={() => minicartToggleView()}
-                />
+                {miniCartComponentHeader}
                 <main className="main-section">
                     <div className="container">
                         <Routes>
                             <Route path="/" element={pageHome}/>
                             <Route path="/products" element={<Products/>}/>
                             <Route path="/products/product/:id" element={<ProductPage/>}/>
-                            <Route path="/checkout" element={<Checkout/>}/>
+                            <Route path="/checkout" element={<Checkout>{miniCartComponent}</Checkout>}/>
                             <Route path="*" element={<Page404/>}/>
                         </Routes>
                     </div>
