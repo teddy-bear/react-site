@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from "react";
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams, useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import Spinner from "../functional/Spinner";
 import Aux from "../hoc/Aux";
+import GlobalContext from "../context/globalContext";
 
 function ProductPage() {
 
-    const params = useParams(),
-        navigate = useNavigate(),
-        url = `https://dummyjson.com/products/${params.id}`,
-        [product, setProduct] = useState({});
+    const params = useParams(), navigate = useNavigate(),
+        url = `https://dummyjson.com/products/${params.id}`, [product, setProduct] = useState({});
 
     useEffect(() => {
         const getProduct = async () => {
@@ -17,11 +16,60 @@ function ProductPage() {
             setProduct(result.data);
         };
         getProduct();
-    }, [])
+    }, []);
+
+    const {modal, updateMinicart, getMinicart} = React.useContext(GlobalContext);
+
+    const minicartProducts = getMinicart.products;
+
+    const handleModal = (show, modalContent, modalTitle) => {
+        modal(show, modalContent, modalTitle);
+    }
+
+    const handleMinicart = (show, products) => {
+        updateMinicart(show, products);
+    }
+
+    let minicartProductsID = [];
+    if (minicartProducts.length) {
+        minicartProductsID = minicartProducts.map((item) => item.id);
+    }
 
     let content = <Spinner/>;
 
     if (product.id) {
+
+        let modalContent = <div className="inner">
+            <p>Product was added to the cart.</p>
+            <div className="actions">
+                    <span
+                        onClick={() => handleModal()}
+                        className='link-primary'>
+                        Continue shopping
+                    </span>
+                <Link
+                    to='/checkout'
+                    className='btn btn-primary'
+                >
+                    Checkout
+                </Link>
+            </div>
+        </div>;
+
+        let btn = <div className="btn btn-primary"
+                       onClick={() => {
+                           handleModal(true, modalContent, product.title);
+                           handleMinicart(false, product)
+                       }}>
+            Buy now
+        </div>;
+
+        if (minicartProductsID.includes(product.id)) {
+            btn = <div className="btn btn-success disabled">
+                Already in cart
+            </div>
+        }
+
         content = <Aux>
             <h1>{product.brand} {product.title}</h1>
             <h3>{product.category}</h3>
@@ -61,9 +109,7 @@ function ProductPage() {
                 <div className="link-primary" onClick={() => navigate(-1)}>
                     go back
                 </div>
-                <div className="btn btn-primary" onClick={() => navigate(1)}>
-                    buy now
-                </div>
+                {btn}
             </div>
         </Aux>
     }
