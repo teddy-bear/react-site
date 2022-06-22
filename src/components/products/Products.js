@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import API from "../../api";
 import Product from "./Product";
 import ProductSwitcher from "./productSwitcher";
 import CategoryFilter from "./CategoryFilter";
+import Spinner from "../functional/Spinner";
 
 const Products = () => {
-
-    const PRODUCT_API = 'https://dummyjson.com/products?limit=12';
 
     const [data, setData] = useState({
         products: [],
@@ -26,7 +25,7 @@ const Products = () => {
                     products: data.products,
                     isFetching: true
                 });
-                const response = await axios.get(PRODUCT_API);
+                const response = await API.get('?limit=12');
                 setData({
                         products: response.data,
                         isFetching: false
@@ -82,7 +81,21 @@ const Products = () => {
     // Source to load the products array: original query or category filter
     let products = filterCategory.currentCategory !== '' ? filterCategory.results : data.products.products;
 
-    let productsCount = products ? products.length : '';
+
+    let productItems = <Spinner/>;
+
+    let productsCount;
+
+    if (products) {
+        productsCount = products.length;
+
+        productItems = products.map((item, index) => {
+            return <Product
+                key={index}
+                product={{...item}}
+            />
+        });
+    }
 
     return (
         <div className="product-list-wrap">
@@ -97,7 +110,6 @@ const Products = () => {
                 Total: <strong>{productsCount}</strong> products found
             </div>
 
-            {/* todo: move layout toggle to a separate widget */}
             <div className="products-mode">
                 <div className="show-mode">
                     Current mode: <strong>{viewMode}</strong>
@@ -112,10 +124,7 @@ const Products = () => {
             </div>
 
             <div className="product-list" data-view={viewMode}>
-                <Product
-                    products={products}
-                    isFetching={data.isFetching}
-                />
+                {productItems}
             </div>
 
         </div>
