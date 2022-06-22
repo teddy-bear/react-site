@@ -12,6 +12,7 @@ import {GlobalProvider} from "./components/context/globalContext";
 import ProductPage from "./components/pdp/productPage";
 import Minicart from "./components/minicart/Minicart";
 import Checkout from "./components/checkout/Checkout";
+import HomePage from "./components/home/homePage";
 
 function App() {
 
@@ -135,7 +136,7 @@ function App() {
                 <main className="main-section">
                     <div className="container">
                         <Routes>
-                            <Route path="/" element={pageHome}/>
+                            <Route path="/" element={<HomePage/>}/>
                             <Route path="/products" element={<Products/>}/>
                             <Route path="/products/product/:id" element={<ProductPage/>}/>
                             <Route path="/checkout" element={<Checkout>{miniCartComponent}</Checkout>}/>
