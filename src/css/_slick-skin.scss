@@ -1,0 +1,36 @@
+.slick-home {
+    margin: 0 -10px;
+
+    .item {
+        margin: 0 10px;
+        border: 1px solid #f1f1f1;
+        text-align: center;
+        padding-bottom: 10px;
+        border-radius: 5px;
+
+        img {
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 5px 5px 0 0;
+            @media all and (min-width: 768px) {
+                height: 180px;
+            }
+        }
+
+        .title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            min-height: 48px;
+        }
+    }
+
+    ul.slick-dots {
+        position: static;
+        padding: 20px 0 0 0;
+
+        li button::before {
+            font-size: 12px;
+        }
+    }
+}

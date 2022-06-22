@@ -39,6 +39,31 @@ function App() {
     }
 
     /**
+     * Set page attribute for styling purposes
+     * @param view
+     */
+    const setPageDataAttribute = (view) => {
+        let pageClass;
+
+        switch (view) {
+            case '/':
+                pageClass = 'home';
+                break;
+            case '/products':
+                pageClass = 'pcp';
+                break;
+            case '/checkout':
+                pageClass = 'checkout';
+                break;
+            default:
+                pageClass = 'pdp';
+        }
+
+        document.body.dataset.view = pageClass;
+    }
+
+
+    /**
      * Disable all popovers on the url update
      * @type {Location<LocationState>}
      */
@@ -50,6 +75,8 @@ function App() {
         setModal({
             show: false
         });
+        setPageDataAttribute(location.pathname);
+
     }, [location]);
 
 
@@ -145,7 +172,7 @@ function App() {
                     </div>
                 </main>
                 <footer>
-                    footer here
+                    Copyright Mike 2022
                 </footer>
                 <Modal
                     handleModal={() => handleModal()}

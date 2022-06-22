@@ -6,6 +6,7 @@ function HomePage() {
     return (
         <div className="page-home">
            {/* <MyGallery/>*/}
+            <h1>Our products</h1>
             <SlickSlider/>
         </div>
     )
