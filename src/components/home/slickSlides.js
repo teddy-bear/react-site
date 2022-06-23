@@ -23,7 +23,6 @@ export default function SlickSlider() {
         className: 'slick-home',
         slidesToShow: 3,
         slidesToScroll: 3,
-        //lazyLoad: 'ondemand',
         responsive: [
             {
                 breakpoint: 768,

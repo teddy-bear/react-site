@@ -22,9 +22,9 @@ function App() {
     });
 
     const [showNavbar, setNavbarVisibility] = useState(false);
-    const [showMinicart, setMinicartVisibility] = useState(false);
 
-    //todo: merge with showMinicart hook
+    //todo: to be removed, get minicart visibility props from setMinicart hook
+    const [showMinicart, setMinicartVisibility] = useState(false);
     const [minicart, setMinicart] = useState({
         show: false,
         products: ''
@@ -62,6 +62,12 @@ function App() {
         document.body.dataset.view = pageClass;
     }
 
+    // todo: develop remove/restore product functionality
+    const [removedItems, setRemovedItems] = useState(false);
+
+    const removeItems = (id) => {
+        setRemovedItems(id);
+    }
 
     /**
      * Disable all popovers on the url update
@@ -79,7 +85,7 @@ function App() {
 
     }, [location]);
 
-
+    // todo: optimize via data attr, use declarative approach
     useEffect(() => {
         if (showNavbar) {
             document.body.classList.add('nav-panel-open');
@@ -134,7 +140,7 @@ function App() {
         })
     }
 
-    /*Temp section*/
+    /*Temp section to be refactored and re-used */
     let modalTabs = <TabsWidget/>;
     let pageHome = <Aux>
         <TableData/>
@@ -156,7 +162,12 @@ function App() {
 
     return (
         <div className="page-wrap">
-            <GlobalProvider value={{modal: handleModal, updateMinicart: handleMinicart, getMinicart: minicart}}>
+            <GlobalProvider value={{
+                modal: handleModal,
+                updateMinicart: handleMinicart,
+                getMinicart: minicart,
+                handleRemovedItems: removeItems
+            }}>
                 <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
                 <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()}/>
                 {miniCartComponentHeader}

@@ -6,6 +6,7 @@ function SlickSlide(props) {
         <div className="item">
             <img src={props.product.thumbnail} className="card-img-top" alt={props.product.title}/>
             <div className="title">{props.product.title}</div>
+            <div className="price">${props.product.price}</div>
             <Link
                 to={`/products/product/${props.product.id}`}
                 className='btn btn-primary'

@@ -66,7 +66,7 @@ function Product(props) {
                 <div className="card-text">
                     <p>{props.product.description}</p>
                     <p className="price">
-                        Price: <strong>{props.product.price}</strong>
+                        Price: <strong>${props.product.price}</strong>
                     </p>
                 </div>
                 <div className="actions">

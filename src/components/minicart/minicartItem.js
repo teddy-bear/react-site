@@ -7,7 +7,7 @@ function MinicartItem(props) {
           props.onModalClose();
       }*/
 
-    const {updateMinicart, getMinicart} = React.useContext(GlobalContext);
+    const {updateMinicart, getMinicart, handleRemovedItems} = React.useContext(GlobalContext);
 
     const minicartProducts = getMinicart.products;
 
@@ -21,8 +21,8 @@ function MinicartItem(props) {
         })
 
         updateMinicart(true, arr, true);
+        handleRemovedItems(id);
     }
-
 
     return (
         <div className="item">
