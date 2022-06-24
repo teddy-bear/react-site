@@ -1,5 +1,6 @@
 import React from "react";
 import FormField from "./formField";
+import GlobalContext from "../context/globalContext";
 
 const formFieldsList = {
     name: {
@@ -57,12 +58,59 @@ class CheckoutForm extends React.Component {
     state = {
         fields: formFieldsList,
         errors: {},
-        formValid: false
+        formValid: true
     }
+
+    // Get global context
+    static contextType = GlobalContext;
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e);
+
+        const minicart = [...this.context.getMinicart.products],
+            modal = this.context.modal,
+            handleMinicart= this.context.updateMinicart;
+
+        let orderedProducts,
+            modalContent,
+            blockProducts,
+            orderDetails;
+
+        if (minicart.length) {
+            orderedProducts = minicart.map((item, index) => {
+                return <li key={index} className='list-group-item'>{item.title} - <span>${item.price}</span></li>
+            })
+            blockProducts = <div className='block-products'>
+                <h4>Products</h4>
+                <ul className='list-group'>
+                    {orderedProducts}
+                </ul>
+            </div>
+        }
+
+        let {name, email, address, payment} = this.state;
+
+        orderDetails = <div className="order-details">
+            <h4>Customer info</h4>
+            <ul className='list-group'>
+                <li className='list-group-item'>{name}</li>
+                <li className='list-group-item'>{email}</li>
+                <li className='list-group-item'>{address}</li>
+                <li className='list-group-item'>{payment}</li>
+            </ul>
+        </div>;
+
+        modalContent = <div className='inner'>
+            {blockProducts}
+            {orderDetails}
+        </div>;
+
+        modal(true, modalContent, 'Order complete!');
+
+        // Empty cart on order placement
+        handleMinicart(false, [], true);
+
+        //console.log(e);
     }
 
     /**
@@ -100,7 +148,7 @@ class CheckoutForm extends React.Component {
      * @returns {boolean}
      */
     validateName = (value) => {
-        return value.length >= 5;
+        return value.length >= 4;
     }
 
     /**
@@ -109,7 +157,7 @@ class CheckoutForm extends React.Component {
      * @returns {boolean}
      */
     validateEmail = (value) => {
-        return value.length >= 5;
+        return value.length >= 4;
     }
 
     /**
@@ -167,7 +215,7 @@ class CheckoutForm extends React.Component {
         };
 
         let fieldNames = Object.keys(fields);
-        let invalidFields = fieldNames.filter((item ) => {
+        let invalidFields = fieldNames.filter((item) => {
             let field = fields[item];
             if (field.required) {
                 return field.valid !== true;
@@ -200,7 +248,7 @@ class CheckoutForm extends React.Component {
             />
         });
 
-        let invalidFields = fieldNames.filter((item, ) => {
+        let invalidFields = fieldNames.filter((item,) => {
             let field = this.state.fields[item];
 
             return field.valid !== true;
@@ -212,6 +260,7 @@ class CheckoutForm extends React.Component {
 
         return (
             <form className='customer-form' onSubmit={this.handleSubmit}>
+                <h3>Customer details</h3>
                 {fields}
                 {/*{invalidFieldsList}*/}
                 <button className="btn btn-primary " type='submit' disabled={disabled}>
