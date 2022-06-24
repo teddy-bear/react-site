@@ -1,4 +1,5 @@
 import React from "react";
+import CheckoutForm from "./checkoutForm";
 
 function Checkout(props) {
 
@@ -7,10 +8,10 @@ function Checkout(props) {
             <h1>Checkout</h1>
             <div className="row">
                 <div className="col-md-6">
-                    main content
+                    {props.children}
                 </div>
                 <div className="col-md-6">
-                    {props.children}
+                    <CheckoutForm />
                 </div>
             </div>
         </div>

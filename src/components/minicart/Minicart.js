@@ -19,7 +19,6 @@ function Minicart(props) {
         minicart,
         location = useLocation();
 
-
     if (products.length) {
         dataFilled = 'filled';
 
