@@ -58,7 +58,7 @@ class CheckoutForm extends React.Component {
     state = {
         fields: formFieldsList,
         errors: {},
-        formValid: true
+        formValid: false
     }
 
     // Get global context
@@ -263,6 +263,9 @@ class CheckoutForm extends React.Component {
                 <h3>Customer details</h3>
                 {fields}
                 {/*{invalidFieldsList}*/}
+                <div className="note">
+                    please complete required * marked fields
+                </div>
                 <button className="btn btn-primary " type='submit' disabled={disabled}>
                     Order now
                 </button>
