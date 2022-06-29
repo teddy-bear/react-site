@@ -1,6 +1,7 @@
 import React from "react";
 import FormField from "./formField";
 import GlobalContext from "../context/globalContext";
+import {Navigate} from "react-router";
 
 const formFieldsList = {
     name: {
@@ -10,6 +11,7 @@ const formFieldsList = {
         placeholder: 'First name and Last name',
         errorText: 'wrong name',
         required: true,
+        value: '',
         valid: null
     },
     email: {
@@ -20,6 +22,7 @@ const formFieldsList = {
         errorText: 'invalid mail',
         required: true,
         valid: null,
+        value: '',
         description: ''
     },
     payment: {
@@ -30,6 +33,7 @@ const formFieldsList = {
         placeholder: '1111 2222 3333 4444',
         errorText: 'wrong card details',
         required: true,
+        value: '',
         valid: null
     },
     address: {
@@ -40,6 +44,7 @@ const formFieldsList = {
         placeholder: '',
         errorText: 'please fill address field',
         required: true,
+        value: '',
         valid: null
     },
     comments: {
@@ -49,6 +54,7 @@ const formFieldsList = {
         placeholder: 'optional',
         errorText: 'add at least one word',
         required: false,
+        value: '',
         valid: null
     }
 
@@ -58,7 +64,8 @@ class CheckoutForm extends React.Component {
     state = {
         fields: formFieldsList,
         errors: {},
-        formValid: false
+        formValid: false,
+        isSubmitted: false
     }
 
     // Get global context
@@ -69,11 +76,13 @@ class CheckoutForm extends React.Component {
 
         const minicart = [...this.context.getMinicart.products],
             modal = this.context.modal,
-            handleMinicart= this.context.updateMinicart;
+            handleMinicart = this.context.updateMinicart;
 
         let orderedProducts,
             modalContent,
             blockProducts,
+            fieldNames,
+            listItems,
             orderDetails;
 
         if (minicart.length) {
@@ -88,15 +97,19 @@ class CheckoutForm extends React.Component {
             </div>
         }
 
-        let {name, email, address, payment} = this.state;
+        fieldNames = Object.keys(this.state.fields);
+        listItems = fieldNames.map((item, index) => {
+            let field = this.state.fields[item];
+
+            if (field.required) {
+                return <li key={index} className='list-group-item'><strong>{field.label}</strong>: {field.value}</li>;
+            }
+        });
 
         orderDetails = <div className="order-details">
             <h4>Customer info</h4>
             <ul className='list-group'>
-                <li className='list-group-item'>{name}</li>
-                <li className='list-group-item'>{email}</li>
-                <li className='list-group-item'>{address}</li>
-                <li className='list-group-item'>{payment}</li>
+                {listItems}
             </ul>
         </div>;
 
@@ -107,10 +120,35 @@ class CheckoutForm extends React.Component {
 
         modal(true, modalContent, 'Order complete!');
 
+        this.setState({
+            isSubmitted: true
+        })
+
         // Empty cart on order placement
         handleMinicart(false, [], true);
 
-        //console.log(e);
+        this.formReset();
+        //window.location.replace('/');
+    }
+
+    /**
+     * Reset form & fields state
+     */
+    formReset = () => {
+
+        let fields = {...this.state.fields};
+
+        let fieldNames = Object.keys(fields);
+
+        fieldNames.forEach((item) => {
+            fields[item].value = '';
+            fields[item].valid = null;
+        })
+
+        this.setState({
+            fields: fields,
+            formValid: false,
+        });
     }
 
     /**
@@ -120,26 +158,30 @@ class CheckoutForm extends React.Component {
     handleInputChange = event => {
         let value = event.target.value;
         let name = event.target.name;
+
+        // copy all fields
+        let fields = {...this.state.fields};
+
+        // select needed object.key and pass only updated key:value pair inside
+        fields[name] = {
+            ...fields[name],
+            value: value
+        };
+
         this.setState({
-            [name]: value
+            fields: fields,
         });
+
+        if (value.length) {
+            this.inputValidate(event, fields);
+        }
     }
 
     /**
      * Field focus lost event handler
-     * @param e
      */
-    handleInputBlur = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({
-            [name]: value
-        });
-
-        //console.log(e.target);
-        if (value.length) {
-            this.inputValidate(e);
-        }
+    handleInputBlur = () => {
+        // Do some action if needed
     }
 
     /**
@@ -174,14 +216,15 @@ class CheckoutForm extends React.Component {
      * @returns {*}
      */
     validatePayment = (value) => {
-        return value.match(/^[0-9]+$/) !== null;
+        return value.match(/^[0-9]+$/) !== null && value.length > 4;
     }
 
     /**
      * Form fields validation
      * @param e
+     * @param fields
      */
-    inputValidate = (e) => {
+    inputValidate = (e, fields) => {
 
         const name = e.target.name;
         const value = e.target.value;
@@ -206,17 +249,17 @@ class CheckoutForm extends React.Component {
         }
 
         // copy all fields
-        let fields = {...this.state.fields};
+        let newFields = {...fields};
 
         // select needed object.key and pass only updated key:value pair inside
-        fields[name] = {
-            ...fields[name],
+        newFields[name] = {
+            ...newFields[name],
             valid: isValid
         };
 
-        let fieldNames = Object.keys(fields);
+        let fieldNames = Object.keys(newFields);
         let invalidFields = fieldNames.filter((item) => {
-            let field = fields[item];
+            let field = newFields[item];
             if (field.required) {
                 return field.valid !== true;
             }
@@ -224,10 +267,8 @@ class CheckoutForm extends React.Component {
 
         let formValid = !invalidFields.length;
 
-        console.log(invalidFields);
-
         this.setState({
-            fields,
+            fields: newFields,
             formValid: formValid
         });
     }
@@ -262,7 +303,7 @@ class CheckoutForm extends React.Component {
             <form className='customer-form' onSubmit={this.handleSubmit}>
                 <h3>Customer details</h3>
                 {fields}
-                {/*{invalidFieldsList}*/}
+                {invalidFieldsList}
                 <div className="note">
                     please complete required * marked fields
                 </div>
