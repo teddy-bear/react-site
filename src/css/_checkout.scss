@@ -61,3 +61,8 @@ body[data-view='checkout'] {
 .block-products {
     padding-bottom: 20px;
 }
+
+.li.list-group-item {
+    display: flex;
+    justify-content: space-between;
+}

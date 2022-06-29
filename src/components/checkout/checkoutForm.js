@@ -87,7 +87,7 @@ class CheckoutForm extends React.Component {
 
         if (minicart.length) {
             orderedProducts = minicart.map((item, index) => {
-                return <li key={index} className='list-group-item'>{item.title} - <span>${item.price}</span></li>
+                return <li key={index} className='list-group-item'>{item.title} <span>${item.price}</span></li>
             })
             blockProducts = <div className='block-products'>
                 <h4>Products</h4>
@@ -102,7 +102,7 @@ class CheckoutForm extends React.Component {
             let field = this.state.fields[item];
 
             if (field.required) {
-                return <li key={index} className='list-group-item'><strong>{field.label}</strong>: {field.value}</li>;
+                return <li key={index} className='list-group-item'><strong>{field.label}</strong> {field.value}</li>;
             }
         });
 
@@ -122,7 +122,7 @@ class CheckoutForm extends React.Component {
 
         this.setState({
             isSubmitted: true
-        })
+        });
 
         // Empty cart on order placement
         handleMinicart(false, [], true);
@@ -309,8 +309,13 @@ class CheckoutForm extends React.Component {
             </div>
         }
 
+        // todo: page redirect on form modal close
+        //let pageRedirect = this.state.isSubmitted ? <Navigate to="/" replace={true} /> : '';
+        //document.body.classList.contains('modal-show')
+
         return (
             <form className='customer-form' onSubmit={this.handleSubmit}>
+                   {/* {pageRedirect}*/}
                 <h3>Customer details</h3>
                 {fields}
                 {formErrorMessage}
