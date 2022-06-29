@@ -1,14 +1,14 @@
 import React from "react";
 
-function TabPanel(props) {
-    let linkCLass = (props.activeTab) ? 'nav-link active' : 'nav-link';
+export default function TabPanel(props) {
+
+    let linkCLass = (props.activeTab) ? 'active' : '';
+
     return (
-        <li className='nav-item' onClick={() => props.onClick(props.children)}>
+        <li className={`nav-link ${linkCLass}`} onClick={() => props.onClick(props.children)}>
             <span className={linkCLass}>
                  {props.children}
             </span>
         </li>
     )
 }
-
-export default TabPanel;

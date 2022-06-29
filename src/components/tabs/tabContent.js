@@ -1,18 +1,10 @@
 import React from "react";
 
-function TabContent(props) {
+export default function TabContent(props) {
 
-    /**
-     * Transfer event options to the parent component via props lift
-     * @param event
-     */
-    const handleTabContentClick = (event) => {
-        props.onTabContentClick(event);
-    }
+    let linkCLass = (props.activeTab) ? 'active' : '';
 
     return (
-        <div onClick={handleTabContentClick} className='inner'>{props.children}</div>
+        <div className={`tab-pane ${linkCLass}`}>{props.children}</div>
     )
 }
-
-export default TabContent;
