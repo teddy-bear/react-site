@@ -292,18 +292,28 @@ class CheckoutForm extends React.Component {
         let invalidFields = fieldNames.filter((item,) => {
             let field = this.state.fields[item];
 
-            return field.valid !== true;
+            if (field.required && field.valid != null) {
+                return field.valid !== true;
+            }
         });
 
         let invalidFieldsList = invalidFields.map((item, index) => {
             return <div key={index}>inv field: {item}</div>;
         });
 
+        let formErrorMessage;
+        if (invalidFieldsList.length) {
+            formErrorMessage = <div className="error-fields alert alert-danger">
+                <strong>Please check following fields</strong><br />
+                {invalidFieldsList}
+            </div>
+        }
+
         return (
             <form className='customer-form' onSubmit={this.handleSubmit}>
                 <h3>Customer details</h3>
                 {fields}
-                {invalidFieldsList}
+                {formErrorMessage}
                 <div className="note">
                     please complete required * marked fields
                 </div>
