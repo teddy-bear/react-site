@@ -273,6 +273,18 @@ class CheckoutForm extends React.Component {
         });
     }
 
+    /**
+     * Perform page redirect after successful order placement
+     * @returns {JSX.Element}
+     */
+    redirectPage = () => {
+        const modalState = this.context.getModal;
+
+        if (modalState.show === false && this.state.isSubmitted) {
+            return <Navigate to="/" replace={true} />
+        }
+    }
+
     render() {
         let disabled = !this.state.formValid;
 
@@ -309,13 +321,8 @@ class CheckoutForm extends React.Component {
             </div>
         }
 
-        // todo: page redirect on form modal close
-        //let pageRedirect = this.state.isSubmitted ? <Navigate to="/" replace={true} /> : '';
-        //document.body.classList.contains('modal-show')
-
         return (
             <form className='customer-form' onSubmit={this.handleSubmit}>
-                   {/* {pageRedirect}*/}
                 <h3>Customer details</h3>
                 {fields}
                 {formErrorMessage}
@@ -325,6 +332,7 @@ class CheckoutForm extends React.Component {
                 <button className="btn btn-primary " type='submit' disabled={disabled}>
                     Order now
                 </button>
+                {this.redirectPage()}
             </form>
         )
     }

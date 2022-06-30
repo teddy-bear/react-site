@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Route, Routes, useLocation} from "react-router-dom";
-import TabsWidget from './components/tabs/tabsWidget';
-import TableData from "./components/table/tableData";
 import Modal from "./components/modal/Modal";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import Products from "./components/products/Products";
-import Aux from "./components/hoc/Aux";
 import Page404 from "./components/functional/Page404";
 import {GlobalProvider} from "./components/context/globalContext";
 import ProductPage from "./components/pdp/productPage";
@@ -140,15 +137,6 @@ function App() {
         })
     }
 
-    /*Temp section to be refactored and re-used */
-    let modalTabs = <TabsWidget/>;
-    let pageHome = <Aux>
-        <TableData/>
-        <button className='btn btn-info' onClick={() => handleModal(true, modalTabs)}>
-            Modal
-        </button>
-    </Aux>;
-
     let miniCartComponent = <Minicart
         show={showMinicart}
         minicart={minicart}
@@ -164,12 +152,13 @@ function App() {
         <div className="page-wrap">
             <GlobalProvider value={{
                 modal: handleModal,
+                getModal: modal,
                 updateMinicart: handleMinicart,
                 getMinicart: minicart,
-                handleRemovedItems: removeItems
+                handleRemovedItems: removeItems,
             }}>
                 <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
-                <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()}/>
+                <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()} handleModal={()=> handleModal()} />
                 {miniCartComponentHeader}
                 <main className="main-section">
                     <div className="container">
