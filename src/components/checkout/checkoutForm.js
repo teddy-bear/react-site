@@ -287,7 +287,17 @@ class CheckoutForm extends React.Component {
     }
 
     render() {
-        let disabled = !this.state.formValid;
+        let disabled = true,
+            emptyCartNotice,
+            products = this.context.getMinicart.products;
+
+        if (this.state.formValid && products.length) {
+            disabled = false;
+        }
+        if (!products.length) {
+            emptyCartNotice = <div className="notice">add product(s) to enable</div>
+        }
+
         let fieldNames = Object.keys(this.state.fields);
 
         let fields = fieldNames.map((item, index) => {
@@ -329,9 +339,12 @@ class CheckoutForm extends React.Component {
                 <div className="note">
                     please complete required * marked fields
                 </div>
-                <button className="btn btn-primary " type='submit' disabled={disabled}>
-                    Order now
-                </button>
+                <div className="actions">
+                    <button className="btn btn-primary " type='submit' disabled={disabled}>
+                        Order now
+                    </button>
+                    {emptyCartNotice}
+                </div>
                 {this.redirectPage('/')}
             </form>
         )
