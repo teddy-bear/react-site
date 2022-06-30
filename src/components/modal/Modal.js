@@ -7,7 +7,7 @@ function Modal(props) {
     //if (props.show) {
     return (
         <Aux>
-            <div className='modal fade show' tabIndex="-1">
+            <div className={`modal fade show ${props.cssClass}`} tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

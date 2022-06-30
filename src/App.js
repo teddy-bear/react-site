@@ -15,6 +15,7 @@ function App() {
 
     const [modal, setModal] = useState({
         show: false,
+        cssClass: '',
         content: ''
     });
 
@@ -106,12 +107,14 @@ function App() {
      * @param show
      * @param modalContent
      * @param modalTitle
+     * @param cssClass
      */
-    const handleModal = (show = false, modalContent = '', modalTitle = false) => {
+    const handleModal = (show = false, modalContent = '', modalTitle = false, cssClass = '') => {
         setModal({
             show: show,
             content: modalContent,
-            title: modalTitle
+            title: modalTitle,
+            cssClass: cssClass
         });
     }
 
@@ -178,6 +181,7 @@ function App() {
                     handleModal={() => handleModal()}
                     show={modal.show}
                     title={modal.title}
+                    cssClass={modal.cssClass}
                 >
                     {modal.content}
                 </Modal>

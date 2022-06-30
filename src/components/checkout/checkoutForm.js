@@ -122,7 +122,7 @@ class CheckoutForm extends React.Component {
             {orderDetails}
         </div>;
 
-        modal(true, modalContent, 'Order complete!');
+        modal(true, modalContent, 'Order complete!', 'modal-order');
 
         this.setState({
             isSubmitted: true

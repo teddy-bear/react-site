@@ -56,6 +56,7 @@ body[data-view='checkout'] {
         font-size: .9rem;
         color: #555;
     }
+
     .notice {
         max-width: 180px;
         font-size: 14px;
@@ -67,7 +68,9 @@ body[data-view='checkout'] {
     padding-bottom: 20px;
 }
 
-.li.list-group-item {
-    display: flex;
-    justify-content: space-between;
+.modal-order {
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+    }
 }
