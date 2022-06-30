@@ -6,8 +6,7 @@ class Form extends React.Component {
         super(props);
 
         this.state = {
-            topic: '',
-            email: ''
+            wishlist: '',
         }
     }
 
@@ -18,10 +17,10 @@ class Form extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        this.props.onFormSubmit(this.state.topic);
+        this.props.onFormSubmit(this.state.wishlist);
 
         this.setState({
-            topic: ''
+            wishlist: ''
         })
     }
 
@@ -50,9 +49,9 @@ class Form extends React.Component {
         let submitDisabled,
             statusMessage;
 
-        if (this.state.topic.length > 0) {
-            submitDisabled = this.containsNumber(this.state.topic);
-            if (this.containsNumber(this.state.topic)) {
+        if (this.state.wishlist.length > 0) {
+            submitDisabled = this.containsNumber(this.state.wishlist);
+            if (this.containsNumber(this.state.wishlist)) {
                 submitDisabled = true;
                 statusMessage = <div className="invalid-feedback">
                     Should contain only letters
@@ -68,23 +67,13 @@ class Form extends React.Component {
                     <input
                         className="form-control"
                         type="text"
-                        placeholder='Add topic'
-                        name='topic'
-                        value={this.state.topic}
+                        placeholder='Add item'
+                        name='wishlist'
+                        value={this.state.wishlist}
                         onChange={this.handleInputChange}
                     />
                     {statusMessage}
                 </label>
-                {/*<label>
-                    <input
-                        className="form-control"
-                        type="email"
-                        placeholder='Email'
-                        name='email'
-                        value={this.state.email}
-                        onChange={this.handleInputChange}
-                    />
-                </label>*/}
                 <button type='submit' className="btn btn-success" disabled={submitDisabled}>
                     Add item
                 </button>

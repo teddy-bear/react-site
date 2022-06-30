@@ -7,7 +7,8 @@ class TableData extends React.Component {
         super(props);
 
         this.state = {
-            topics: ['JSX', 'Rendering Elements', 'Components & Props', 'State & Lifecycle'], removedItem: null
+            wishlist: ['iPhone 9', 'iPhone X', 'Marshall Bass', 'AirPods PRO'],
+            removedItem: null
         }
     }
 
@@ -17,9 +18,10 @@ class TableData extends React.Component {
      */
     handleRemoveRowClick = (item) => {
         if (item !== this.state.removedItem) {
-            const result = [...this.state.topics].filter(word => word !== item);
+            const result = [...this.state.wishlist].filter(word => word !== item);
             this.setState({
-                topics: result, removedItem: item
+                wishlist: result,
+                removedItem: item
             });
         }
     }
@@ -30,7 +32,7 @@ class TableData extends React.Component {
      */
     handleRestoreRowClick = (item) => {
         this.setState({
-            topics: [...this.state.topics, item], removedItem: null
+            wishlist: [...this.state.wishlist, item], removedItem: null
         })
     }
 
@@ -40,13 +42,13 @@ class TableData extends React.Component {
      */
     handleFormSubmit = (item) => {
         this.setState({
-            topics: [...this.state.topics, item]
+            wishlist: [...this.state.wishlist, item]
         })
     }
 
 
     render() {
-        const tabs = this.state.topics;
+        const tabs = this.state.wishlist;
 
         const rows = tabs.map((item, index) => {
             return <tr key={index} className={'row-' + index}>
