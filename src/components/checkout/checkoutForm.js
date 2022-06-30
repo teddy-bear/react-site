@@ -71,6 +71,10 @@ class CheckoutForm extends React.Component {
     // Get global context
     static contextType = GlobalContext;
 
+    /**
+     * Form order submit
+     * @param e
+     */
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -126,9 +130,6 @@ class CheckoutForm extends React.Component {
 
         // Empty cart on order placement
         handleMinicart(false, [], true);
-
-        this.formReset();
-        //window.location.replace('/');
     }
 
     /**
@@ -277,17 +278,16 @@ class CheckoutForm extends React.Component {
      * Perform page redirect after successful order placement
      * @returns {JSX.Element}
      */
-    redirectPage = () => {
+    redirectPage = (path) => {
         const modalState = this.context.getModal;
 
         if (modalState.show === false && this.state.isSubmitted) {
-            return <Navigate to="/" replace={true} />
+            return <Navigate to={path} replace={true} />
         }
     }
 
     render() {
         let disabled = !this.state.formValid;
-
         let fieldNames = Object.keys(this.state.fields);
 
         let fields = fieldNames.map((item, index) => {
@@ -332,7 +332,7 @@ class CheckoutForm extends React.Component {
                 <button className="btn btn-primary " type='submit' disabled={disabled}>
                     Order now
                 </button>
-                {this.redirectPage()}
+                {this.redirectPage('/')}
             </form>
         )
     }
