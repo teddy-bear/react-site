@@ -79,7 +79,7 @@ class TableData extends React.Component {
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Topic</th>
+                    <th scope="col">Item</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>

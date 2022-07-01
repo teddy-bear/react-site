@@ -1,6 +1,7 @@
 import React from "react";
 import CheckoutForm from "./checkoutForm";
 import TabsWidget from "../tabs/tabsWidget";
+import ErrorBoundary from "../functional/errorHandler";
 
 export default function Checkout(props) {
 
@@ -11,7 +12,7 @@ export default function Checkout(props) {
         },
         customer: {
             title: 'Customer details',
-            content: <CheckoutForm/>
+            content: <ErrorBoundary><CheckoutForm/></ErrorBoundary>
         }
     }
 
