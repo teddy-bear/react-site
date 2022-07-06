@@ -57,6 +57,13 @@ function ProductPage() {
             return {original: item, thumbnail: item};
         })
 
+        let imageGallerySettings = {
+            items: slideImages,
+            showThumbnails: true,
+            loading: 'lazy',
+            lazyLoad: true
+        }
+
         let modalContent = <div className="inner">
             <p>Product was added to the cart.</p>
             <div className="actions">
@@ -92,12 +99,7 @@ function ProductPage() {
             <h1>{product.brand} {product.title}</h1>
             <h3>{product.category}</h3>
 
-            <ImageGallery
-                items={slideImages}
-                showThumbnails={true}
-                loading='lazy'
-                lazyLoad={true}
-            />
+            <ImageGallery {...imageGallerySettings} />
 
             <div className="figure-caption">{product.description}</div>
 
