@@ -1,6 +1,17 @@
 //
-//  Modal
+//  Product page
 //  _____________________________________________
-
 .product-page {
+
+    // Image gallery
+    .image-gallery-content {
+        &:not(.fullscreen) {
+            .image-gallery-image {
+                @media screen and (max-width: 480px) {
+                    object-fit: cover;
+                    height: 270px;
+                }
+            }
+        }
+    }
 }

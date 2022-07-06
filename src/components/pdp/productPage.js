@@ -4,10 +4,12 @@ import axios from "axios";
 import Spinner from "../functional/Spinner";
 import Aux from "../hoc/Aux";
 import GlobalContext from "../context/globalContext";
+const ImageGallery = React.lazy(() => import('react-image-gallery'));
 
 function ProductPage() {
 
-    const params = useParams(), navigate = useNavigate(),
+    const params = useParams(),
+        navigate = useNavigate(),
         url = `https://dummyjson.com/products/${params.id}`,
         [product, setProduct] = useState({});
 
@@ -23,10 +25,21 @@ function ProductPage() {
 
     const minicartProducts = getMinicart.products;
 
+    /**
+     * Set modal
+     * @param show
+     * @param modalContent
+     * @param modalTitle
+     */
     const handleModal = (show, modalContent, modalTitle) => {
         modal(show, modalContent, modalTitle);
     }
 
+    /**
+     * Update Minicart
+     * @param show
+     * @param products
+     */
     const handleMinicart = (show, products) => {
         updateMinicart(show, products);
     }
@@ -39,6 +52,10 @@ function ProductPage() {
     let content = <Spinner/>;
 
     if (product.id) {
+
+        let slideImages = product.images.map((item) => {
+            return {original: item, thumbnail: item};
+        })
 
         let modalContent = <div className="inner">
             <p>Product was added to the cart.</p>
@@ -74,10 +91,18 @@ function ProductPage() {
         content = <Aux>
             <h1>{product.brand} {product.title}</h1>
             <h3>{product.category}</h3>
-            <figure className="figure">
-                <img src={product.thumbnail} className="figure-img img-fluid rounded" alt={product.title}/>
-                <figcaption className="figure-caption">{product.description}</figcaption>
-            </figure>
+
+            <React.Suspense fallback={<Spinner/>}>
+                <ImageGallery
+                    items={slideImages}
+                    showThumbnails={true}
+                    loading='lazy'
+                    lazyLoad={true}
+                />
+            </React.Suspense>
+
+            <div className="figure-caption">{product.description}</div>
+
             <div className="info">
                 <table className="table">
                     <tbody>
