@@ -4,40 +4,72 @@ import GlobalContext from "../context/globalContext";
 
 function Product(props) {
 
-    const {modal, updateMinicart, getMinicart} = React.useContext(GlobalContext);
+    const {modal, updateMinicart, getMinicart, handleRemovedItems,  getRemovedItems} = React.useContext(GlobalContext);
 
     const minicartProducts = getMinicart.products;
+    const removedItems = getRemovedItems;
 
-    let minicartProductsID = [];
+    let minicartProductsID = [],
+        removedItemsID = [];
+
     if (minicartProducts) {
         minicartProductsID = minicartProducts.map((props) => {
             return props.id;
         });
     }
 
+    if (removedItems) {
+        removedItemsID = removedItems.map((props) => {
+            return props.id;
+        });
+    }
+
+    /**
+     * Modal call
+     * @param show
+     * @param modalContent
+     * @param modalTitle
+     */
     const handleModal = (show, modalContent, modalTitle) => {
         modal(show, modalContent, modalTitle);
     }
 
-    const handleMinicart = (show, products) => {
-        updateMinicart(show, products);
+    /**
+     * Minicart update
+     * @param show
+     * @param product
+     */
+    const handleMinicart = (show, product) => {
+        updateMinicart(show, product);
+        if (removedItemsID && removedItemsID.includes(props.product.id)) {
+            handleRemovedItems(product, true);
+        }
     }
 
-    let btn = <div className="btn btn-primary"
-                   onClick={() => {
-                       handleModal(true, modalContent, props.product.title);
-                       handleMinicart(false, props.product)
-                   }}>
-        Buy now
-    </div>
+    /**
+     * Display buy button
+     * @returns {JSX.Element}
+     */
+    const buttonText = () => {
+        let btnText = 'Buy now',
+            btnClass = 'btn btn-primary';
 
-    if (minicartProductsID.includes(props.product.id)) {
-        btn = <div className="btn btn-success disabled"
-                   onClick={() => {
-                       handleModal(true, modalContent, props.product.title);
-                       handleMinicart(false, props.product)
-                   }}>
-            Added to cart
+        if (minicartProductsID.includes(props.product.id)) {
+            btnText = 'Added to cart';
+            btnClass = 'btn btn-success disabled';
+        }
+
+        if (removedItemsID.includes(props.product.id)) {
+            btnText = 'Restore';
+            btnClass = 'btn btn-info';
+        }
+
+        return <div className={btnClass}
+                    onClick={() => {
+                        handleModal(true, modalContent, props.product.title);
+                        handleMinicart(false, props.product)
+                    }}>
+            {btnText}
         </div>
     }
 
@@ -70,7 +102,7 @@ function Product(props) {
                     </p>
                 </div>
                 <div className="actions">
-                    {btn}
+                    {buttonText()}
                     <Link
                         to={`/products/product/${props.product.id}`}
                         className='btn btn-secondary'

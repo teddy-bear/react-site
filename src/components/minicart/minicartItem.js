@@ -13,15 +13,15 @@ function MinicartItem(props) {
 
     /**
      * Remove item from the cart, pass updated products array
-     * @param id
+     * @param product
      */
-    const removeItem = (id) => {
+    const removeItem = (product) => {
         const arr = minicartProducts.filter((item) => {
-            return item.id !== id;
+            return item.id !== product.id;
         })
 
         updateMinicart(true, arr, true);
-        handleRemovedItems(id);
+        handleRemovedItems(product);
     }
 
     return (
@@ -34,7 +34,9 @@ function MinicartItem(props) {
                 <div className='price'>${props.item.price}</div>
             </div>
             <span className="icon-remove material-symbols-outlined"
-                  onClick={() => removeItem(props.item.id)}>close</span>
+                  onClick={() => removeItem(props.item)}>
+                close
+            </span>
         </div>
     )
 }

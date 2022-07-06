@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, Routes, useLocation} from "react-router-dom";
 import Modal from "./components/modal/Modal";
 import Header from "./components/header/Header";
@@ -27,6 +27,8 @@ function App() {
         show: false,
         products: ''
     });
+
+    const [removedItems, setRemovedItems] = useState([]);
 
     const navbarToggleView = () => {
         setNavbarVisibility(!showNavbar);
@@ -58,13 +60,6 @@ function App() {
         }
 
         document.body.dataset.view = pageClass;
-    }
-
-    // todo: develop remove/restore product functionality
-    const [removedItems, setRemovedItems] = useState(false);
-
-    const removeItems = (id) => {
-        setRemovedItems(id);
     }
 
     /**
@@ -140,9 +135,26 @@ function App() {
         })
     }
 
+    /**
+     * Set Minicart removed items
+     * @param product
+     * @param restore
+     */
+    const handleRemovedItems = (product, restore) => {
+        if (restore) {
+            const arr = removedItems.filter((item) => {
+                return item.id !== product.id;
+            })
+            setRemovedItems([...arr]);
+        } else {
+            setRemovedItems([...removedItems, product]);
+        }
+    }
+
     let miniCartComponent = <Minicart
         show={showMinicart}
         minicart={minicart}
+        removedItems={removedItems}
         handleMinicartView={() => minicartToggleView()}
     />;
 
@@ -158,10 +170,11 @@ function App() {
                 getModal: modal,
                 updateMinicart: handleMinicart,
                 getMinicart: minicart,
-                handleRemovedItems: removeItems,
+                handleRemovedItems: handleRemovedItems,
+                getRemovedItems: removedItems
             }}>
                 <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
-                <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()} handleModal={()=> handleModal()} />
+                <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()} handleModal={() => handleModal()}/>
                 {miniCartComponentHeader}
                 <main className="main-section">
                     <div className="container">
