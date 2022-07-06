@@ -4,7 +4,7 @@ import axios from "axios";
 import Spinner from "../functional/Spinner";
 import Aux from "../hoc/Aux";
 import GlobalContext from "../context/globalContext";
-const ImageGallery = React.lazy(() => import('react-image-gallery'));
+import ImageGallery from "react-image-gallery";
 
 function ProductPage() {
 
@@ -92,14 +92,12 @@ function ProductPage() {
             <h1>{product.brand} {product.title}</h1>
             <h3>{product.category}</h3>
 
-            <React.Suspense fallback={<Spinner/>}>
-                <ImageGallery
-                    items={slideImages}
-                    showThumbnails={true}
-                    loading='lazy'
-                    lazyLoad={true}
-                />
-            </React.Suspense>
+            <ImageGallery
+                items={slideImages}
+                showThumbnails={true}
+                loading='lazy'
+                lazyLoad={true}
+            />
 
             <div className="figure-caption">{product.description}</div>
 
