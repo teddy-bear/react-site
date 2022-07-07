@@ -1,4 +1,5 @@
 # My pet project for the shop app
+~ Looks better on mobile, though should look fine on tablet and above ~ 
 
 ## Available Scripts
 
