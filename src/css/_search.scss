@@ -1,0 +1,50 @@
+//
+//  Search results page & widget
+//  ____________________________________________
+body[data-view='search'] {
+    .main-section {
+        align-items: flex-start; // prevent content jump effect
+    }
+
+    //
+    //  Search widget
+    //  -------------------
+    .block-search {
+        position: relative;
+        padding-bottom: 20px;
+
+        .spinner-wrap {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            min-height: auto;
+            width: auto;
+        }
+
+        .spinner-wrap > div {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .res-count {
+        padding-bottom: 20px;
+    }
+
+    //
+    //  Search results products
+    //  -------------------
+    .search-results.product-list {
+        @media screen and (min-width: 1200px) {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+}

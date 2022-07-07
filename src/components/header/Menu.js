@@ -45,6 +45,7 @@ function Menu(props) {
                 <ul className="navbar-nav">
                     <MenuLink to='/'>Home</MenuLink>
                     <MenuLink to='/products'>Products</MenuLink>
+                    <MenuLink to='/search'>Search</MenuLink>
                     {miniCartLink}
                 </ul>
             </div>

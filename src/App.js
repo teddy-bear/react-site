@@ -10,6 +10,7 @@ import ProductPage from "./components/pdp/productPage";
 import Minicart from "./components/minicart/Minicart";
 import Checkout from "./components/checkout/Checkout";
 import HomePage from "./components/home/homePage";
+import SearchPage from "./components/search/searchPage";
 
 function App() {
 
@@ -54,6 +55,9 @@ function App() {
                 break;
             case '/checkout':
                 pageClass = 'checkout';
+                break;
+            case '/search':
+                pageClass = 'search';
                 break;
             default:
                 pageClass = 'pdp';
@@ -182,6 +186,7 @@ function App() {
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="/products" element={<Products/>}/>
                             <Route path="/products/product/:id" element={<ProductPage/>}/>
+                            <Route path="/search" element={<SearchPage/>}/>
                             <Route path="/checkout" element={<Checkout>{miniCartComponent}</Checkout>}/>
                             <Route path="*" element={<Page404/>}/>
                         </Routes>
