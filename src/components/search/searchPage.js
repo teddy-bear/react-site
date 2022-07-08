@@ -2,6 +2,7 @@ import React from "react";
 import SearchBar from "./searchBar";
 import API from "../../api";
 import Product from "../products/Product";
+import debounce from 'lodash.debounce';
 
 class SearchPage extends React.Component {
 
@@ -12,6 +13,8 @@ class SearchPage extends React.Component {
             filterText: '',
             products: []
         }
+
+        this.getProductsDebounced = debounce(this.getProducts, 300);
     }
 
     /**
@@ -51,7 +54,7 @@ class SearchPage extends React.Component {
         this.setState({
             filterText: text
         })
-        this.getProducts(this.state.filterText);
+        this.getProductsDebounced(this.state.filterText);
     }
 
     render() {
