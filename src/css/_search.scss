@@ -1,7 +1,7 @@
 //
 //  Search results page & widget
 //  ____________________________________________
-body[data-view='search'] {
+body[data-location='search'] {
     .main-section {
         align-items: flex-start; // prevent content jump effect
     }

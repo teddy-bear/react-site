@@ -41,29 +41,18 @@ function App() {
 
     /**
      * Set page attribute for styling purposes
-     * @param view
+     * @param pathname
      */
-    const setPageDataAttribute = (view) => {
-        let pageClass;
+    const setPageDataAttribute = (pathname) => {
+        let routeLocation = pathname.replaceAll('/', '');
 
-        switch (view) {
-            case '/':
-                pageClass = 'home';
-                break;
-            case '/products':
-                pageClass = 'pcp';
-                break;
-            case '/checkout':
-                pageClass = 'checkout';
-                break;
-            case '/search':
-                pageClass = 'search';
-                break;
-            default:
-                pageClass = 'pdp';
+        if (pathname === '/') {
+            routeLocation = 'home';
+        } else if (pathname.includes('/products/product/')) {
+            routeLocation = 'pdp';
         }
 
-        document.body.dataset.view = pageClass;
+        document.body.dataset.location = routeLocation;
     }
 
     /**
