@@ -13,11 +13,15 @@ const Products = () => {
     });
 
     const [viewMode, setViewMode] = useState('grid');
+    const [productsOrder, setProductsOrder] = useState(false);
     const [filterCategory, setFilterCategory] = useState({
         results: '',
         currentCategory: ''
     });
 
+    /**
+     * Get products data on page render
+     */
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -78,6 +82,71 @@ const Products = () => {
         });
     }
 
+    const setOrder = (e) => {
+
+        setProductsOrder(e.target.value);
+
+        // todo: add custom hook here
+    }
+
+    /**
+     * Watch for sort order change
+     * todo: try as a custom hook
+     */
+    useEffect(() => {
+        if (productsOrder && data.products.products.length) {
+            let sortedProducts = [...data.products.products];
+
+            if (productsOrder.includes('price')) {
+                sortedProducts = sortByPrice(productsOrder);
+            } else if (productsOrder.includes('name')) {
+                sortedProducts = sortByName(productsOrder);
+            } else if (productsOrder === 'default') {
+                sortedProducts = products.sort((a, b) => a.id - b.id)
+            }else if (productsOrder === 'rating') {
+                sortedProducts = products.sort((a, b) => b.rating - a.rating)
+            }
+
+            setData({
+                products: {
+                    products: sortedProducts
+                },
+                isFetching: false // todo: check if this prop is needed
+            })
+        }
+
+    }, [productsOrder]);
+
+    /**
+     * Sort products by price
+     * @param order
+     * @returns {*}
+     */
+    const sortByPrice = (order) => {
+        let sortedProducts = products.sort((a, b) => a.price - b.price);
+
+        if (order === 'priceDESC') {
+            sortedProducts = products.sort((a, b) => b.price - a.price);
+        }
+
+        return sortedProducts;
+    }
+
+    /**
+     * Sort products by price
+     * @param order
+     * @returns {*}
+     */
+    const sortByName = (order) => {
+        let sortedProducts = products.sort((a, b) => a.title.localeCompare(b.title));
+
+        if (order === 'nameDESC') {
+            sortedProducts = products.sort((a, b) => b.title.localeCompare(a.title));
+        }
+
+        return sortedProducts;
+    }
+
     // Source to load the products array: original query or category filter
     let products = filterCategory.currentCategory !== '' ? filterCategory.results : data.products.products;
 
@@ -100,6 +169,7 @@ const Products = () => {
     return (
         <div className="product-list-wrap">
 
+            {/*todo: avoid render on order change, pass immutable categories list */}
             <CategoryFilter
                 products={data.products.products}
                 handleClick={(category) => filterByCategory(category)}
@@ -108,6 +178,20 @@ const Products = () => {
 
             <div className="results">
                 Total: <strong>{productsCount}</strong> products found
+            </div>
+
+            <div className="price-sorter">
+                <label>
+                    sort order
+                    <select name="sort_order" className='form-select' onChange={setOrder}>
+                        <option value="default">Default</option>
+                        <option value="priceASC">cheapest</option>
+                        <option value="priceDESC">expensive</option>
+                        <option value="nameASC">Name ASC</option>
+                        <option value="nameDESC">Name DESC</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                </label>
             </div>
 
             <div className="products-mode">
