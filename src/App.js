@@ -71,7 +71,6 @@ function App() {
 
     }, [location]);
 
-    // todo: optimize via data attr, use declarative approach
     useEffect(() => {
         if (showNavbar) {
             document.body.classList.add('nav-panel-open');

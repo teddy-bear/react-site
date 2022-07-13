@@ -1,0 +1,43 @@
+//
+//  Accordion widget
+//  ____________________________________________
+
+.accordion-wrapper {
+    .row {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+
+        .title {
+            padding-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+
+            .material-symbols-outlined {
+                position: absolute;
+                right: 6px;
+                top: 2px;
+                font-weight: bold;
+                transform: rotateX(0deg);
+                transition: transform 0.2s ease;
+            }
+        }
+
+        .content {
+            display: none;
+            padding-bottom: 10px;
+        }
+
+        // expanded item
+        &[data-active='true'] {
+            .content {
+                display: block;
+            }
+
+            .title {
+                .material-symbols-outlined {
+                    transform: rotateX(180deg);
+                }
+            }
+        }
+    }
+}

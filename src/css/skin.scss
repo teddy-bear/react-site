@@ -5,6 +5,7 @@
 @import "slick-skin";
 @import "checkout";
 @import "search";
+@import "accordion";
 
 // Image gallery
 @import "~react-image-gallery/styles/scss/image-gallery.scss";
@@ -104,6 +105,10 @@ img {
         .invalid-feedback {
             display: block;
         }
+    }
+
+    + div {
+        padding-top: 30px;
     }
 }
 
