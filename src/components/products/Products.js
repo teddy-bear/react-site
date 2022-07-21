@@ -14,7 +14,7 @@ const Products = () => {
     });
 
     const [viewMode, setViewMode] = useState('grid');
-    const [productsOrder, setProductsOrder] = useState(false);
+    const [productsOrder, setProductsOrder] = useState('default');
     const [filterCategory, setFilterCategory] = useState({
         results: '',
         currentCategory: ''
@@ -53,9 +53,8 @@ const Products = () => {
     /**
      * Product layout view mode handler
      * @param currentView
-     * @param event
      */
-    const viewModeToggle = (currentView, event) => {
+    const viewModeToggle = (currentView) => {
         if (currentView !== viewMode) {
             setViewMode(currentView);
         }
@@ -66,8 +65,8 @@ const Products = () => {
      * @param category
      */
     const filterByCategory = (category) => {
-        let arr = data.products.products;
-        let results = [];
+        let arr = data.products.products,
+            results = [];
 
         if (arr) {
             if (category) {
@@ -86,50 +85,42 @@ const Products = () => {
     }
 
     /**
-     * Set products order
+     * Set products order variable
      * @param e
      */
     const setOrder = (e) => {
-
         setProductsOrder(e.target.value);
-
-        // todo: add custom hook here
     }
 
     /**
-     * Watch for sort order change
-     * todo: try as a custom hook
+     * Apply products sorting
+     * @param products
+     * @returns {*}
      */
-    useEffect(() => {
-        if (productsOrder && data.products.products.length) {
-            let sortedProducts = [...data.products.products];
+    const doSorting = (products) => {
+        let sortedProducts;
 
-            if (productsOrder.includes('price')) {
-                sortedProducts = sortByPrice(productsOrder);
-            } else if (productsOrder.includes('name')) {
-                sortedProducts = sortByName(productsOrder);
-            } else if (productsOrder === 'default') {
-                sortedProducts = products.sort((a, b) => a.id - b.id)
-            } else if (productsOrder === 'rating') {
-                sortedProducts = products.sort((a, b) => b.rating - a.rating)
-            }
-
-            setData({
-                products: {
-                    products: sortedProducts
-                },
-                isFetching: false // todo: check if this prop is needed
-            })
+        if (productsOrder.includes('price')) {
+            sortedProducts = sortByPrice(productsOrder, products);
+        } else if (productsOrder.includes('name')) {
+            sortedProducts = sortByName(productsOrder, products);
+        } else if (productsOrder === 'default') {
+            sortedProducts = products.sort((a, b) => a.id - b.id)
+        } else if (productsOrder === 'rating') {
+            sortedProducts = products.sort((a, b) => b.rating - a.rating)
         }
 
-    }, [productsOrder]);
+        return sortedProducts;
+    }
 
     /**
      * Sort products by price
      * @param order
+     * @param products
      * @returns {*}
      */
-    const sortByPrice = (order) => {
+    const sortByPrice = (order, products) => {
+
         let sortedProducts = products.sort((a, b) => a.price - b.price);
 
         if (order === 'priceDESC') {
@@ -142,9 +133,10 @@ const Products = () => {
     /**
      * Sort products by price
      * @param order
+     * @param products
      * @returns {*}
      */
-    const sortByName = (order) => {
+    const sortByName = (order, products) => {
         let sortedProducts = products.sort((a, b) => a.title.localeCompare(b.title));
 
         if (order === 'nameDESC') {
@@ -165,26 +157,26 @@ const Products = () => {
             categories.add(element.category);
         });
 
-        let categoriesArray = Array.from(categories);
-
-        setProductCategories(categoriesArray);
+        setProductCategories(Array.from(categories));
     }
 
     // Source to load the products array: original query or category filter
     let products = filterCategory.currentCategory !== '' ? filterCategory.results : data.products.products;
-
     let productItems = <Spinner/>;
 
     let productsCount;
 
-    if (data.products.products && !productCategories) {
-        getCategoriesList(data.products.products);
-    }
-
     if (products) {
         productsCount = products.length;
 
-        productItems = products.map((item, index) => {
+        // need to run only once to populate categories widget
+        if (!productCategories) {
+            getCategoriesList(data.products.products);
+        }
+
+        let sortedItems = doSorting(products);
+
+        productItems = sortedItems.map((item, index) => {
             return <Product
                 key={index}
                 product={{...item}}
@@ -195,9 +187,7 @@ const Products = () => {
     return (
         <div className="product-list-wrap">
 
-            {/*todo: avoid render on order change, pass immutable categories list */}
             <CategoryFilter
-                /*products={data.products.products}*/
                 categories={productCategories}
                 handleClick={(category) => filterByCategory(category)}
                 currentCategory={filterCategory.currentCategory}

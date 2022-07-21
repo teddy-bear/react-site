@@ -13,8 +13,9 @@ const CategoryFilter = (props) => {
     const setCategory = (value) => {
         props.handleClick(value);
     }
+
     if (props.categories) {
-        categories = ['', ...props.categories]; // add first blank item for All category
+        categories = ['', ...props.categories]; // add first blank item for `All` category
 
         content = categories.map((item, index) => {
             return (
