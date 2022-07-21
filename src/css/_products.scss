@@ -4,6 +4,18 @@
 .product-list-wrap {
 
     //
+    //  Sorting & Results
+    //  ---------------------------------------------
+    .row-sorting {
+        display: flex;
+        width: 100%;
+        padding-bottom: 10px;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+    }
+
+    //
     //  View mode toggle
     //  ---------------------------------------------
     .products-mode {

@@ -4,6 +4,7 @@ import Product from "./Product";
 import ProductSwitcher from "./productSwitcher";
 import CategoryFilter from "./CategoryFilter";
 import Spinner from "../functional/Spinner";
+import SortingWidget from "./sortingWidget";
 
 const Products = () => {
 
@@ -82,6 +83,10 @@ const Products = () => {
         });
     }
 
+    /**
+     * Set products order
+     * @param e
+     */
     const setOrder = (e) => {
 
         setProductsOrder(e.target.value);
@@ -103,7 +108,7 @@ const Products = () => {
                 sortedProducts = sortByName(productsOrder);
             } else if (productsOrder === 'default') {
                 sortedProducts = products.sort((a, b) => a.id - b.id)
-            }else if (productsOrder === 'rating') {
+            } else if (productsOrder === 'rating') {
                 sortedProducts = products.sort((a, b) => b.rating - a.rating)
             }
 
@@ -176,22 +181,11 @@ const Products = () => {
                 currentCategory={filterCategory.currentCategory}
             />
 
-            <div className="results">
-                Total: <strong>{productsCount}</strong> products found
-            </div>
-
-            <div className="price-sorter">
-                <label>
-                    sort order
-                    <select name="sort_order" className='form-select' onChange={setOrder}>
-                        <option value="default">Default</option>
-                        <option value="priceASC">cheapest</option>
-                        <option value="priceDESC">expensive</option>
-                        <option value="nameASC">Name ASC</option>
-                        <option value="nameDESC">Name DESC</option>
-                        <option value="rating">Rating</option>
-                    </select>
-                </label>
+            <div className="row-sorting">
+                <div className="results">
+                    Total: <strong>{productsCount}</strong> products found
+                </div>
+                <SortingWidget handleChange={setOrder} />
             </div>
 
             <div className="products-mode">
