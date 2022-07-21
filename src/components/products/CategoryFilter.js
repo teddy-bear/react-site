@@ -3,8 +3,7 @@ import CategoryFilterButton from "./CategoryFilterButton";
 
 const CategoryFilter = (props) => {
 
-    let products = props.products,
-        categories = [''],
+    let categories,
         content;
 
     /**
@@ -14,16 +13,8 @@ const CategoryFilter = (props) => {
     const setCategory = (value) => {
         props.handleClick(value);
     }
-
-    if (products) {
-        products.forEach((element) => {
-            categories = [...categories, element.category];
-        });
-
-        // Remove duplicated category names
-        categories = categories.filter((category, index, array) => {
-            return array.indexOf(category) === index;
-        })
+    if (props.categories) {
+        categories = ['', ...props.categories]; // add first blank item for All category
 
         content = categories.map((item, index) => {
             return (

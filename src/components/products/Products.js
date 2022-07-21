@@ -20,6 +20,8 @@ const Products = () => {
         currentCategory: ''
     });
 
+    const [productCategories, setProductCategories] = useState(null);
+
     /**
      * Get products data on page render
      */
@@ -152,13 +154,32 @@ const Products = () => {
         return sortedProducts;
     }
 
+    /**
+     * Get categories list
+     * @param products
+     */
+    const getCategoriesList = (products) => {
+        let categories = new Set();
+
+        products.forEach((element) => {
+            categories.add(element.category);
+        });
+
+        let categoriesArray = Array.from(categories);
+
+        setProductCategories(categoriesArray);
+    }
+
     // Source to load the products array: original query or category filter
     let products = filterCategory.currentCategory !== '' ? filterCategory.results : data.products.products;
-
 
     let productItems = <Spinner/>;
 
     let productsCount;
+
+    if (data.products.products && !productCategories) {
+        getCategoriesList(data.products.products);
+    }
 
     if (products) {
         productsCount = products.length;
@@ -176,7 +197,8 @@ const Products = () => {
 
             {/*todo: avoid render on order change, pass immutable categories list */}
             <CategoryFilter
-                products={data.products.products}
+                /*products={data.products.products}*/
+                categories={productCategories}
                 handleClick={(category) => filterByCategory(category)}
                 currentCategory={filterCategory.currentCategory}
             />
@@ -185,7 +207,7 @@ const Products = () => {
                 <div className="results">
                     Total: <strong>{productsCount}</strong> products found
                 </div>
-                <SortingWidget handleChange={setOrder} />
+                <SortingWidget handleChange={setOrder}/>
             </div>
 
             <div className="products-mode">
