@@ -169,16 +169,16 @@ const Products = () => {
     if (products) {
         productsCount = products.length;
 
-        // need to run only once to populate categories widget
+        // need to run only once to populate categories widget, think on refactor
         if (!productCategories) {
             getCategoriesList(data.products.products);
         }
 
         let sortedItems = doSorting(products);
 
-        productItems = sortedItems.map((item, index) => {
+        productItems = sortedItems.map((item) => {
             return <Product
-                key={index}
+                key={item.id}
                 product={{...item}}
             />
         });
