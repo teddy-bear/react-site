@@ -17,6 +17,18 @@ class SearchPage extends React.Component {
         this.getProductsDebounced = debounce(this.getProducts, 300);
     }
 
+    componentDidMount () {
+        console.log('componentDidMount');
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate');
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
     /**
      * Retrieve products from global API via async fetch
      * @param needle
