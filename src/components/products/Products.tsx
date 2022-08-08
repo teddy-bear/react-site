@@ -8,7 +8,12 @@ import SortingWidget from "./sortingWidget";
 
 const Products = () => {
 
-    const [data, setData] = useState({
+    interface PropsType {
+        products: Array<any>,
+        isFetching: boolean,
+    }
+
+    const [data, setData] = useState<PropsType>({
         products: [],
         isFetching: false
     });
@@ -65,6 +70,7 @@ const Products = () => {
      * @param category
      */
     const filterByCategory = (category) => {
+        // @ts-ignore
         let arr = data.products.products,
             results = [];
 
@@ -79,6 +85,7 @@ const Products = () => {
         }
 
         setFilterCategory({
+            // @ts-ignore
             results: results,
             currentCategory: category
         });
@@ -161,6 +168,7 @@ const Products = () => {
     }
 
     // Source to load the products array: original query or category filter
+    // @ts-ignore
     let products = filterCategory.currentCategory !== '' ? filterCategory.results : data.products.products;
     let productItems = <Spinner/>;
 
@@ -171,6 +179,7 @@ const Products = () => {
 
         // need to run only once to populate categories widget, think on refactor
         if (!productCategories) {
+            // @ts-ignore
             getCategoriesList(data.products.products);
         }
 
@@ -207,9 +216,9 @@ const Products = () => {
 
                 <div className="mode-toggle">
                     <ProductSwitcher view='list' currentView={viewMode}
-                                     handleCLick={(view, event) => viewModeToggle(view, event)}/>
+                                     handleCLick={(view) => viewModeToggle(view)}/>
                     <ProductSwitcher view='grid' currentView={viewMode}
-                                     handleCLick={(view, event) => viewModeToggle(view, event)}/>
+                                     handleCLick={(view) => viewModeToggle(view)}/>
                 </div>
             </div>
 
