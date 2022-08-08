@@ -1,12 +1,11 @@
 import React from "react";
-import Aux from "../hoc/Aux";
 import Overlay from "../functional/Overlay";
 
 function Modal(props) {
 
     //if (props.show) {
     return (
-        <Aux>
+        <>
             <div className={`modal fade show ${props.cssClass}`} tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -33,7 +32,7 @@ function Modal(props) {
                 </div>
             </div>
             <Overlay show={props.show} clicked={props.handleModal}/>
-        </Aux>
+        </>
     )
     ///}
 }
