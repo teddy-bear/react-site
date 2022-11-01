@@ -17,7 +17,7 @@ function Menu(props) {
 
     let dataFilled = '';
     let count = '';
-    if (getMinicart.products.length) {
+    if (getMinicart.products && getMinicart.products.length) {
         dataFilled = 'filled';
         count = <span className='count'>{getMinicart.products.length}</span>
     }

@@ -11,7 +11,7 @@ export default function Minicart(props) {
           props.onModalClose();
       }*/
 
-    let products = props.minicart.products,
+    let products = props.minicart.products ? props.minicart.products : [],
         removedItemsIDs = props.removedItems,
         dataFilled = products.length ? 'filled' : '',
         totalPrice,
@@ -106,7 +106,7 @@ export default function Minicart(props) {
                     {totalPrice}
                     {checkoutLink}
                 </div>
-                <Overlay show={props.show} clicked={props.handleMinicartView}/>
+                <Overlay show={props.minicart.show} clicked={props.handleMinicartView}/>
             </Aux>
         }
     }

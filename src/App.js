@@ -17,16 +17,15 @@ function App() {
     const [modal, setModal] = useState({
         show: false,
         cssClass: '',
-        content: ''
+        content: '',
+        title: 'Sample modal'
     });
 
     const [showNavbar, setNavbarVisibility] = useState(false);
 
-    //todo: to be removed, get minicart visibility props from setMinicart hook
-    const [showMinicart, setMinicartVisibility] = useState(false);
     const [minicart, setMinicart] = useState({
         show: false,
-        products: ''
+        products: []
     });
 
     const [removedItems, setRemovedItems] = useState([]);
@@ -36,7 +35,10 @@ function App() {
     }
 
     const minicartToggleView = () => {
-        setMinicartVisibility(!showMinicart);
+        setMinicart({
+            show: !minicart.show,
+            products: [...minicart.products]
+        });
     }
 
     /**
@@ -57,13 +59,16 @@ function App() {
 
     /**
      * Disable all popovers on the url update
-     * @type {Location<LocationState>}
+     * @type {Location}
      */
     let location = useLocation();
     useEffect(() => {
 
         setNavbarVisibility(false);
-        setMinicartVisibility(false);
+        setMinicart({
+            show: false,
+            products: [...minicart.products]
+        });
         setModal({
             show: false
         });
@@ -82,7 +87,7 @@ function App() {
         } else {
             document.body.classList.remove('modal-show');
         }
-        if (showMinicart) {
+        if (minicart.show) {
             document.body.classList.add('minicart-open');
         } else {
             document.body.classList.remove('minicart-open');
@@ -144,7 +149,6 @@ function App() {
     }
 
     let miniCartComponent = <Minicart
-        show={showMinicart}
         minicart={minicart}
         removedItems={removedItems}
         handleMinicartView={() => minicartToggleView()}

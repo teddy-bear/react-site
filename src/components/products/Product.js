@@ -93,6 +93,7 @@ function Product(props) {
     return (
         <div className="card">
             <img src={props.product.thumbnail} className="card-img-top" alt={props.product.title}/>
+            <div className="icon-wishlist">add to wishlist</div>
             <div className="card-body">
                 <h5 className="card-title">{props.product.title}</h5>
                 <div className="card-text">
