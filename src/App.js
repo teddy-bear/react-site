@@ -30,6 +30,10 @@ function App() {
 
     const [removedItems, setRemovedItems] = useState([]);
 
+    const [wishListItems, setWishListItems] = useState({
+        products: []
+    });
+
     const navbarToggleView = () => {
         setNavbarVisibility(!showNavbar);
     }
@@ -132,6 +136,21 @@ function App() {
         })
     }
 
+    const handleWishlist = (product, remove) => {
+
+        let items = [...wishListItems.products];
+
+        if (remove) {
+            items = items.filter((item) => item.id !== product.id)
+        } else if (product && typeof product === 'object') {
+            items = [...wishListItems.products, product]
+        }
+
+        setWishListItems({
+            products: items
+        })
+    }
+
     /**
      * Set Minicart removed items
      * @param product
@@ -167,7 +186,9 @@ function App() {
                 updateMinicart: handleMinicart,
                 getMinicart: minicart,
                 handleRemovedItems: handleRemovedItems,
-                getRemovedItems: removedItems
+                getRemovedItems: removedItems,
+                handleWishlist: handleWishlist,
+                getwishListItems: wishListItems
             }}>
                 <Header handleNavbarView={() => navbarToggleView()} handleMinicartView={() => minicartToggleView()}/>
                 <Navbar show={showNavbar} handleNavbar={() => navbarToggleView()} handleModal={() => handleModal()}/>

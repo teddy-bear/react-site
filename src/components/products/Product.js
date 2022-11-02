@@ -1,10 +1,18 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import GlobalContext from "../context/globalContext";
+import WishListIcon from "../wishlist/wishListIcon";
 
 function Product(props) {
 
-    const {modal, updateMinicart, getMinicart, handleRemovedItems,  getRemovedItems} = React.useContext(GlobalContext);
+    const {
+        modal,
+        updateMinicart,
+        getMinicart,
+        handleRemovedItems,
+        getRemovedItems,
+        getwishListItems,
+    } = React.useContext(GlobalContext);
 
     const minicartProducts = getMinicart.products;
     const removedItems = getRemovedItems;
@@ -50,7 +58,7 @@ function Product(props) {
      * Display buy button
      * @returns {JSX.Element}
      */
-    const buttonText = () => {
+    const renderButton = () => {
         let btnText = 'Buy now',
             btnClass = 'btn btn-primary';
 
@@ -73,6 +81,20 @@ function Product(props) {
         </div>
     }
 
+    /**
+     * Check if product has been added to the wish list
+     * @returns {boolean|*}
+     */
+    const isAddedToWishList = () => {
+        let wishListItems = getwishListItems.products;
+
+        if (wishListItems && wishListItems.length) {
+            let listItems = wishListItems.map((item) => item.id);
+            return listItems.includes(props.product.id);
+        }
+        return false;
+    }
+
     let modalContent = <div className="inner">
         <p>Product was added to the cart.</p>
         <div className="actions">
@@ -93,7 +115,7 @@ function Product(props) {
     return (
         <div className="card">
             <img src={props.product.thumbnail} className="card-img-top" alt={props.product.title}/>
-            <div className="icon-wishlist">add to wishlist</div>
+            <WishListIcon product={props.product} isAdded={isAddedToWishList()}/>
             <div className="card-body">
                 <h5 className="card-title">{props.product.title}</h5>
                 <div className="card-text">
@@ -103,7 +125,7 @@ function Product(props) {
                     </p>
                 </div>
                 <div className="actions">
-                    {buttonText()}
+                    {renderButton()}
                     <Link
                         to={`/products/product/${props.product.id}`}
                         className='btn btn-secondary'

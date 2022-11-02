@@ -64,10 +64,21 @@
 
         .icon-wishlist {
             position: absolute;
-            top: 0;
-            right: 0;
+            top: 2%;
+            right: 2%;
+            font-size: 30px;
             color: #fff;
             cursor: pointer;
+            font-weight: 700;
+            transition: .3s;
+
+            &._added {
+                color: red;
+            }
+
+            &:hover {
+                transform: scale(1.3);
+            }
         }
 
         &[data-view="grid"] {
