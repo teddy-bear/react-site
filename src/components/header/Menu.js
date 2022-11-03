@@ -13,21 +13,25 @@ function Menu(props) {
         props.handleMinicartView();
     }
 
-    const {getMinicart} = React.useContext(GlobalContext);
+    const {getMinicart, getwishListItems} = React.useContext(GlobalContext);
 
-    let dataFilled = '';
-    let count = '';
-    if (getMinicart.products && getMinicart.products.length) {
+    let dataFilled = '',
+        minicartCount = '';
+
+    if (getMinicart.products?.length) {
         dataFilled = 'filled';
-        count = <span className='count'>{getMinicart.products.length}</span>
+        minicartCount = <span className='count'>{getMinicart.products.length}</span>
     }
+
+    let wishListCount = getwishListItems.products?.length ?
+        <span className='count'>{getwishListItems.products.length}</span> : '';
 
     let location = useLocation(),
         miniCartLink;
     if (location.pathname !== '/checkout') {
         miniCartLink = <li className='nav-item link-minicart' data-filled={dataFilled} onClick={() => toggleMinicart()}>
             <span className="material-symbols-outlined">shopping_bag</span>
-            {count}
+            {minicartCount}
         </li>
     }
 
@@ -40,6 +44,7 @@ function Menu(props) {
                     onClick={() => toggleNavbar()}
                 >
                     <span className="navbar-toggler-icon"></span>
+                    {wishListCount}
                 </button>
 
                 <ul className="navbar-nav">
