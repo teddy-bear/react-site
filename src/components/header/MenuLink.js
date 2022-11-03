@@ -5,7 +5,8 @@ function MenuLink(props) {
     let resolved = useResolvedPath(props.to);
     let match = useMatch({path: resolved.pathname, end: true});
 
-    let cssClass = match ? ' nav-link active' : 'nav-link';
+    let cssClass = 'nav-link';
+    cssClass += match ? ' active' : '';
 
     return (
         <li className='nav-item'>

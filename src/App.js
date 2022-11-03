@@ -34,10 +34,16 @@ function App() {
         products: []
     });
 
+    /**
+     * Navbar toggle view
+     */
     const navbarToggleView = () => {
         setNavbarVisibility(!showNavbar);
     }
 
+    /**
+     * Minicart display options
+     */
     const minicartToggleView = () => {
         setMinicart({
             show: !minicart.show,
@@ -80,6 +86,9 @@ function App() {
 
     }, [location]);
 
+    /**
+     * Set body classes for the proper design
+     */
     useEffect(() => {
         if (showNavbar) {
             document.body.classList.add('nav-panel-open');
@@ -136,6 +145,11 @@ function App() {
         })
     }
 
+    /**
+     * Update wishlist state
+     * @param product
+     * @param remove
+     */
     const handleWishlist = (product, remove) => {
 
         let items = [...wishListItems.products];
@@ -173,10 +187,7 @@ function App() {
         handleMinicartView={() => minicartToggleView()}
     />;
 
-    let miniCartComponentHeader;
-    if (location.pathname !== '/checkout') {
-        miniCartComponentHeader = miniCartComponent;
-    }
+    let miniCartComponentHeader = location.pathname !== '/checkout' ? miniCartComponent : null;
 
     return (
         <div className="page-wrap">

@@ -34,13 +34,9 @@ export default function SlickSlider() {
         ]
     };
 
-    let content;
-
-    if (data.length) {
-        content = data.map((item, index) => {
-            return <SlickSlide key={index} product={item}></SlickSlide>;
-        });
-    }
+    let content = data.length ? data.map((item, index) => {
+        return <SlickSlide key={index} product={item}></SlickSlide>;
+    }) : null;
 
     return data.length ? <Slider {...settings}>{content}</Slider> : <Spinner/>;
 }

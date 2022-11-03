@@ -24,7 +24,7 @@ function Menu(props) {
     }
 
     let wishListCount = getwishListItems.products?.length ?
-        <span className='count'>{getwishListItems.products.length}</span> : '';
+        <span className='count'>{getwishListItems.products.length}</span> : null;
 
     let location = useLocation(),
         miniCartLink;
