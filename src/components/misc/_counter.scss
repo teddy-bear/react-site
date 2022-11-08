@@ -1,0 +1,10 @@
+.counter-wrap {
+    display: flex;
+    font-size: 20px;
+    justify-content: space-around;
+    border: 1px solid red;
+
+    .item {
+        cursor: pointer;
+    }
+}
