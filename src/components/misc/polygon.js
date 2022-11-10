@@ -43,6 +43,12 @@ export default function Polygon() {
     getSum(arrayOfNumbers)
     getEven(arrayOfNumbers);
 
+    /**
+     * High Order Function example
+     * @param currencySymbol
+     * @param decimalSeparator
+     * @returns {function(*): string}
+     */
     const formatCurrency =  (currencySymbol, decimalSeparator) => {
         return function (value) {
             const wholePart = Math.trunc(value / 100);
