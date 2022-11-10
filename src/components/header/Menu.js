@@ -17,6 +17,7 @@ function Menu(props) {
 
     let dataFilled = '',
         minicartCount = '';
+        // my test commit here
 
     if (getMinicart.products?.length) {
         dataFilled = 'filled';
