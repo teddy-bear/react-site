@@ -14,8 +14,9 @@ function Product(props) {
         getwishListItems,
     } = React.useContext(GlobalContext);
 
-    const minicartProducts = getMinicart.products;
-    const removedItems = getRemovedItems;
+    const product = props.product,
+        minicartProducts = getMinicart.products,
+        removedItems = getRemovedItems;
 
     let minicartProductsID = [],
         removedItemsID = [];
@@ -49,7 +50,7 @@ function Product(props) {
      */
     const handleMinicart = (show, product) => {
         updateMinicart(show, product);
-        if (removedItemsID && removedItemsID.includes(props.product.id)) {
+        if (removedItemsID && removedItemsID.includes(product.id)) {
             handleRemovedItems(product, true);
         }
     }
@@ -62,20 +63,20 @@ function Product(props) {
         let btnText = 'Buy now',
             btnClass = 'btn btn-primary';
 
-        if (minicartProductsID.includes(props.product.id)) {
+        if (minicartProductsID.includes(product.id)) {
             btnText = 'Added to cart';
             btnClass = 'btn btn-success disabled';
         }
 
-        if (removedItemsID.includes(props.product.id)) {
+        if (removedItemsID.includes(product.id)) {
             btnText = 'Restore';
             btnClass = 'btn btn-info';
         }
 
         return <div className={btnClass}
                     onClick={() => {
-                        handleModal(true, modalContent, props.product.title);
-                        handleMinicart(false, props.product)
+                        handleModal(true, modalContent, product.title);
+                        handleMinicart(false, product)
                     }}>
             {btnText}
         </div>
@@ -90,7 +91,7 @@ function Product(props) {
 
         if (wishListItems && wishListItems.length) {
             let listItems = wishListItems.map((item) => item.id);
-            return listItems.includes(props.product.id);
+            return listItems.includes(product.id);
         }
         return false;
     }
@@ -114,20 +115,20 @@ function Product(props) {
 
     return (
         <div className="card">
-            <img src={props.product.thumbnail} className="card-img-top" alt={props.product.title}/>
-            <WishListIcon product={props.product} isAdded={isAddedToWishList()}/>
+            <img src={product.thumbnail} className="card-img-top" alt={product.title}/>
+            <WishListIcon product={product} isAdded={isAddedToWishList()}/>
             <div className="card-body">
-                <h5 className="card-title">{props.product.title}</h5>
+                <h5 className="card-title">{product.title}</h5>
                 <div className="card-text">
-                    <p>{props.product.description}</p>
+                    <p>{product.description}</p>
                     <p className="price">
-                        Price: <strong>${props.product.price}</strong>
+                        Price: <strong>${product.price}</strong>
                     </p>
                 </div>
                 <div className="actions">
                     {renderButton()}
                     <Link
-                        to={`/products/product/${props.product.id}`}
+                        to={`/products/product/${product.id}`}
                         className='btn btn-secondary'
                     >
                         quick view
