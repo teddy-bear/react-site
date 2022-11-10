@@ -11,6 +11,7 @@ import Minicart from "./components/minicart/Minicart";
 import Checkout from "./components/checkout/Checkout";
 import HomePage from "./components/home/homePage";
 import SearchPage from "./components/search/searchPage";
+import Polygon from './components/misc/polygon';
 
 function App() {
 
@@ -213,6 +214,7 @@ function App() {
                             <Route path="/search" element={<SearchPage/>}/>
                             <Route path="/checkout" element={<Checkout>{miniCartComponent}</Checkout>}/>
                             <Route path="*" element={<Page404/>}/>
+                            <Route path="/polygon" element={<Polygon/>}/>
                         </Routes>
                     </div>
                 </main>
