@@ -148,4 +148,17 @@ footer {
     background: #3171bfee;
     color: #fff;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    // todo: add envelope? icon
+    a {
+        color: #fff;
+        text-transform: capitalize;
+
+        &:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+    }
 }

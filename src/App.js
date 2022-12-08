@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Link, Route, Routes, useLocation} from "react-router-dom";
 import Modal from "./components/modal/Modal";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
@@ -12,6 +12,7 @@ import Checkout from "./components/checkout/Checkout";
 import HomePage from "./components/home/homePage";
 import SearchPage from "./components/search/searchPage";
 import Polygon from './components/misc/polygon';
+import ContactForm from "./components/contactForm/ContactForm";
 
 function App() {
 
@@ -214,12 +215,16 @@ function App() {
                             <Route path="/search" element={<SearchPage/>}/>
                             <Route path="/checkout" element={<Checkout>{miniCartComponent}</Checkout>}/>
                             <Route path="*" element={<Page404/>}/>
+                            <Route path="/contact" element={<ContactForm/>}/>
                             <Route path="/polygon" element={<Polygon/>}/>
                         </Routes>
                     </div>
                 </main>
                 <footer>
                     Copyright Mike 2022
+                    <Link to='/contact'>
+                        contacts
+                    </Link>
                 </footer>
                 <Modal
                     handleModal={() => handleModal()}
