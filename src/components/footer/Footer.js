@@ -11,6 +11,7 @@ export default function Footer() {
         subscribe("copy", (data) => setClicked(!data.detail));
         subscribe("footer", (data) => setFooterInfo(data));
 
+        // Clear event listeners on component unMount
         return () => {
             unsubscribe("copy");
             unsubscribe("footer");
