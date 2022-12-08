@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Modal from "./components/modal/Modal";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
@@ -13,6 +13,7 @@ import HomePage from "./components/home/homePage";
 import SearchPage from "./components/search/searchPage";
 import Polygon from './components/misc/polygon';
 import ContactForm from "./components/contactForm/ContactForm";
+import Footer from "./components/footer/Footer";
 
 function App() {
 
@@ -220,12 +221,7 @@ function App() {
                         </Routes>
                     </div>
                 </main>
-                <footer>
-                    Copyright Mike 2022
-                    <Link to='/contact'>
-                        contacts
-                    </Link>
-                </footer>
+               <Footer />
                 <Modal
                     handleModal={() => handleModal()}
                     show={modal.show}
