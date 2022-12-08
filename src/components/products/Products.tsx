@@ -5,6 +5,7 @@ import ProductSwitcher from "./productSwitcher";
 import CategoryFilter from "./CategoryFilter";
 import Spinner from "../functional/Spinner";
 import SortingWidget from "./sortingWidget";
+import {v4 as UUID} from "uuid";
 
 const Products = () => {
 
@@ -38,6 +39,12 @@ const Products = () => {
                     isFetching: true
                 });
                 const response = await API.get('?limit=12');
+
+                // Generate unique key for each item
+                response.data.products = await response.data.products.map((item) => {
+                    return {...item, uuid: UUID()};
+                });
+
                 setData({
                         products: response.data,
                         isFetching: false
@@ -187,7 +194,8 @@ const Products = () => {
 
         productItems = sortedItems.map((item) => {
             return <Product
-                key={item.id}
+                key={item.uuid}
+                //key={item.id}
                 product={{...item}}
             />
         });
