@@ -108,7 +108,7 @@ function App() {
         } else {
             document.body.classList.remove('minicart-open');
         }
-    });
+    }, [showNavbar, modal.show, minicart.show]);
 
     /**
      * Configure modal options
