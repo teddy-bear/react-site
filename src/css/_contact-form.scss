@@ -1,0 +1,21 @@
+//
+//  Contact form
+//  ____________________________________________
+.contact-form {
+    .form-label {
+        display: block;
+    }
+
+    label {
+        &[aria-invalid="true"] {
+            .form-control {
+                border-color: red;
+            }
+
+            .invalid-feedback {
+                display: block;
+            }
+        }
+    }
+
+}
